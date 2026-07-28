@@ -11,3 +11,4 @@
 2026-07-28 13:54:32 | admin | admin | UPDATE_EVIDENCE | Updated record E0E1 in evidence.txt
 2026-07-28 13:55:22 | admin | admin | LOGOUT | User logged out.
 2026-07-28 13:55:37 | officer | officer | LOGIN_SUCCESS | User logged in successfully from 127.0.0.1
+2026-07-28 20:22:29 | admin | admin | LOGIN_SUCCESS | User logged in successfully from 127.0.0.1
