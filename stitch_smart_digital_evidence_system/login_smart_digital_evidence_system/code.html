@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Login | ForensicShield Smart Digital Evidence System</title>
+<!-- Google Fonts: Public Sans -->
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-container": "#131b2e",
+                    "on-primary": "#ffffff",
+                    "error": "#ba1a1a",
+                    "surface-bright": "#f7f9fb",
+                    "on-surface": "#191c1e",
+                    "on-tertiary-fixed-variant": "#763300",
+                    "surface-container-low": "#f2f4f6",
+                    "surface-container-highest": "#e0e3e5",
+                    "on-secondary-fixed-variant": "#3a485c",
+                    "tertiary-container": "#331200",
+                    "on-primary-container": "#7c839b",
+                    "primary": "#000000",
+                    "on-error-container": "#93000a",
+                    "on-secondary-fixed": "#0d1c2f",
+                    "primary-fixed-dim": "#bec6e0",
+                    "secondary-fixed-dim": "#b9c7e0",
+                    "on-tertiary-fixed": "#331200",
+                    "tertiary-fixed-dim": "#ffb68e",
+                    "on-primary-fixed": "#131b2e",
+                    "outline": "#76777d",
+                    "error-container": "#ffdad6",
+                    "outline-variant": "#c6c6cd",
+                    "on-background": "#191c1e",
+                    "inverse-on-surface": "#eff1f3",
+                    "inverse-surface": "#2d3133",
+                    "secondary-fixed": "#d5e3fd",
+                    "on-secondary-container": "#57657b",
+                    "surface-variant": "#e0e3e5",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-fixed": "#dae2fd",
+                    "on-secondary": "#ffffff",
+                    "surface-container": "#eceef0",
+                    "on-tertiary": "#ffffff",
+                    "secondary": "#515f74",
+                    "surface-tint": "#565e74",
+                    "on-error": "#ffffff",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "surface": "#f7f9fb",
+                    "secondary-container": "#d5e3fd",
+                    "background": "#f7f9fb",
+                    "surface-container-high": "#e6e8ea",
+                    "inverse-primary": "#bec6e0",
+                    "on-surface-variant": "#45464d",
+                    "tertiary": "#000000",
+                    "tertiary-fixed": "#ffdbca",
+                    "on-tertiary-container": "#cf6721",
+                    "surface-dim": "#d8dadc"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "base": "4px",
+                    "margin-page": "32px",
+                    "container-max": "1440px",
+                    "sidebar-width": "280px",
+                    "gutter-md": "24px"
+            },
+            "fontFamily": {
+                    "body-md": ["Public Sans"],
+                    "headline-md": ["Public Sans"],
+                    "headline-lg-mobile": ["Public Sans"],
+                    "label-md": ["Public Sans"],
+                    "label-sm": ["Public Sans"],
+                    "body-lg": ["Public Sans"],
+                    "headline-lg": ["Public Sans"]
+            },
+            "fontSize": {
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "500"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg": ["30px", {"lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>.material-symbols-outlined {
+    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24
+    }
+.grain-overlay {
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuBUgE8YuwDckOAYeMJjBX5M5mhpopHejavMu49soElUlBJ6K6v7oHD7_4rfezLjOvqrtorc0RJPJF10Tcp8InhkcCDFfW5EFIqwkslj80ioToHCtUsQ-W7DbshtBQD-89Dq8QMYqw934mvlDbDQ_IQSlSVGqoYbDBRz-gGNjg2m-BfN397RlJPCHS4rQVNNDKfRZCsYggZTl0LDmsNGUgFRLUdFqOJjn6mZwaYJ83PkdffzWb-E_tiT9Q);
+    opacity: 0.03;
+    pointer-events: none
+    }
+.login-card {
+    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.1), 0 10px 20px -10px rgba(0, 0, 0, 0.05)
+    }
+/* Hide scrollbar for clean UI */
+body::-webkit-scrollbar {
+    display: none
+    }
+body {
+    -ms-overflow-style: none;
+    scrollbar-width: none
+    }</style>
+</head>
+<body class="bg-surface font-body-md text-on-surface overflow-hidden">
+<!-- Professional Forensic Atmosphere Background -->
+<div class="fixed inset-0 z-0 bg-primary-container overflow-hidden">
+<!-- Subtle Pattern Overlay -->
+<div class="absolute inset-0 opacity-[0.05]" style="background-image: radial-gradient(circle at 2px 2px, #ffffff 1px, transparent 0); background-size: 40px 40px;"></div>
+<!-- Animated Atmosphere Glows -->
+<div class="absolute top-[-10%] right-[-10%] w-[60%] h-[60%] rounded-full bg-secondary opacity-10 blur-[120px] animate-pulse"></div>
+<div class="absolute bottom-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-on-primary-container opacity-5 blur-[100px]"></div>
+<div class="grain-overlay absolute inset-0"></div>
+</div>
+<!-- Login Content Wrapper -->
+<main class="relative z-10 flex min-h-screen items-center justify-center px-margin-page">
+<!-- Login Container -->
+<div class="w-full max-w-md">
+<!-- Branding Header -->
+<div class="text-center mb-10">
+<div class="inline-block p-4 mb-6 rounded-2xl bg-surface-container-lowest login-card transition-transform duration-500 hover:scale-[1.02]">
+<img alt="Smart Digital Evidence System Logo" class="w-48 h-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBMCnTC76y8LdnPeH57iLNmDaa_8ITGa7oiqXeFInaDbiNVHVGuRxSPQGBFBZTo1VC5Mx-kaRKl-Zrc4XimgX9rCQxlSjQB2vUwKUSdvw1vjZ6cFSz6YIiRXJ11akZDUZf6P7DGii4EEhXMiBNVsvUF7W5Fr2Ed9QrFMzEX4qwveXG5Aeh6dOcsRNrbX84SZZsQ8tHF-wP4FQBI-qSowTRv1qWq8r99yPjjZacKnoRMWcZbK-Ycn0GkgA"/>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-primary mb-2 tracking-tight">ForensicShield</h1>
+<p class="font-label-md text-label-md text-on-primary-container tracking-[0.1em] uppercase">Smart Digital Evidence System</p>
+</div>
+<!-- Login Card -->
+<div class="bg-surface-container-lowest login-card rounded-xl border border-outline-variant p-8 md:p-10 relative overflow-hidden">
+<!-- Status Accent (Gold for High Priority as per System Guidelines) -->
+<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-[#cf6721]"></div>
+<form class="space-y-6" onsubmit="event.preventDefault(); window.location.reload();">
+<!-- Username Field -->
+<div class="space-y-2">
+<label class="font-label-md text-label-md text-on-surface-variant flex items-center gap-2" for="username">
+<span class="material-symbols-outlined text-[18px]">person</span>
+                            USERNAME
+                        </label>
+<div class="relative group">
+<input class="w-full px-4 py-3.5 bg-surface-bright border border-outline-variant rounded-lg font-body-md text-on-surface focus:ring-2 focus:ring-primary-container focus:border-transparent outline-none transition-all duration-200 placeholder:text-outline-variant" id="username" placeholder="Enter agency ID or username" required="" type="text"/>
+</div>
+</div>
+<!-- Password Field -->
+<div class="space-y-2">
+<div class="flex justify-between items-center">
+<label class="font-label-md text-label-md text-on-surface-variant flex items-center gap-2" for="password">
+<span class="material-symbols-outlined text-[18px]">lock</span>
+                                PASSWORD
+                            </label>
+<a class="font-label-sm text-label-sm text-on-primary-fixed-variant hover:text-primary-container transition-colors" href="#">FORGOT PIN?</a>
+</div>
+<div class="relative group">
+<input class="w-full px-4 py-3.5 bg-surface-bright border border-outline-variant rounded-lg font-body-md text-on-surface focus:ring-2 focus:ring-primary-container focus:border-transparent outline-none transition-all duration-200 placeholder:text-outline-variant" id="password" placeholder="••••••••" required="" type="password"/>
+<button class="absolute right-4 top-1/2 -translate-y-1/2 text-outline-variant hover:text-on-surface-variant transition-colors" type="button">
+<span class="material-symbols-outlined text-[20px]">visibility_off</span>
+</button>
+</div>
+</div>
+<!-- Options -->
+<div class="flex items-center">
+<input class="w-4 h-4 rounded border-outline-variant text-primary-container focus:ring-primary-container" id="remember" type="checkbox"/>
+<label class="ml-2 font-body-md text-body-md text-on-surface-variant cursor-pointer select-none" for="remember">
+                            Keep session active for 8 hours
+                        </label>
+</div>
+<!-- Submit Action -->
+<div class="pt-4">
+<button class="group relative w-full bg-primary-container text-on-primary font-headline-md text-headline-md py-4 px-6 rounded-lg overflow-hidden transition-all duration-300 hover:shadow-xl active:scale-[0.98] flex items-center justify-center gap-3" type="submit">
+<span class="relative z-10">Secure Login</span>
+<span class="material-symbols-outlined relative z-10 transition-transform duration-300 group-hover:translate-x-1">arrow_forward</span>
+<!-- Hover Effect Layer -->
+<div class="absolute inset-0 bg-on-primary-fixed-variant opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+</button>
+</div>
+</form>
+<!-- Forensic Security Footer -->
+<div class="mt-8 pt-8 border-t border-outline-variant/30 text-center">
+<p class="font-label-sm text-label-sm text-on-surface-variant leading-relaxed">
+                        Authorized personnel only. Access is monitored and logged for judicial compliance and audit purposes.
+                    </p>
+</div>
+</div>
+<!-- Footer Links -->
+<div class="flex justify-between items-center mt-6 px-2">
+<p class="font-label-sm text-label-sm text-on-primary-container">v2.4.0-Stable</p>
+<div class="flex gap-4">
+<a class="font-label-sm text-label-sm text-on-primary-container hover:text-on-primary transition-colors" href="#">Support</a>
+<a class="font-label-sm text-label-sm text-on-primary-container hover:text-on-primary transition-colors" href="#">Legal</a>
+</div>
+</div>
+</div>
+</main>
+<!-- Subtle Scanline Micro-interaction script -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const card = document.querySelector('.login-card');
+            
+            // Subtle parallax effect on mouse move
+            document.addEventListener('mousemove', (e) => {
+                const xAxis = (window.innerWidth / 2 - e.pageX) / 50;
+                const yAxis = (window.innerHeight / 2 - e.pageY) / 50;
+                card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+            });
+
+            // Reset transform on mouse leave
+            document.addEventListener('mouseleave', () => {
+                card.style.transform = `rotateY(0deg) rotateX(0deg)`;
+            });
+        });
+    </script>
+</body></html>

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>View Evidence | ForensicShield Smart Digital Evidence System</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+        darkMode: "class",
+        theme: {
+            extend: {
+                "colors": {
+                    "primary-container": "#131b2e",
+                    "on-primary": "#ffffff",
+                    "surface-bright": "#f7f9fb",
+                    "on-surface": "#191c1e",
+                    "surface-container-lowest": "#ffffff",
+                    "primary": "#000000",
+                    "outline-variant": "#c6c6cd"
+                },
+                "spacing": { "margin-page": "32px", "sidebar-width": "280px", "gutter-md": "24px" }
+            }
+        }
+    }
+</script>
+<style>
+    body { font-family: 'Public Sans', sans-serif; background-color: #f7f9fb; }
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+</style>
+</head>
+<body class="text-on-surface overflow-x-hidden">
+
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-margin-page h-16 bg-surface-container-highest dark:bg-primary-container border-b border-outline-variant shadow-sm">
+<div class="flex items-center gap-4">
+<span class="text-headline-md font-bold text-on-surface dark:text-on-primary">ForensicShield</span>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-3">
+<span class="text-label-md font-bold text-on-surface dark:text-on-primary">{{ session.get('full_name') }}</span>
+<a class="text-label-md text-primary dark:text-on-primary ml-2 hover:underline" href="{{ url_for('logout') }}">Logout</a>
+</div>
+</div>
+</header>
+
+<aside class="fixed left-0 top-0 h-full w-sidebar-width flex flex-col py-6 z-40 bg-primary-container hidden md:flex">
+<div class="px-8 mb-10 flex items-center gap-4 mt-16">
+<div class="w-10 h-10 bg-on-primary rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-primary-container" style="font-variation-settings: 'FILL' 1;">security</span>
+</div>
+<div>
+<h2 class="text-headline-md text-on-primary leading-tight font-bold">Digital Evidence</h2>
+<p class="text-xs text-on-primary-container opacity-80 uppercase tracking-widest">{{ session.get('badge_number') }}</p>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-4 text-on-primary-container px-8 py-3 hover:bg-on-primary-fixed-variant transition-all" href="{{ url_for('dashboard') }}">
+<span class="material-symbols-outlined">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-4 text-on-primary-container px-8 py-3 hover:bg-on-primary-fixed-variant transition-all" href="{{ url_for('add_evidence') }}">
+<span class="material-symbols-outlined">add_box</span>
+<span>Add Evidence</span>
+</a>
+<a class="flex items-center gap-4 bg-primary text-on-primary rounded-l-full ml-4 pl-4 py-3 border-l-4 border-amber-500 font-bold" href="{{ url_for('view_evidence') }}">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">table_view</span>
+<span>View Evidence</span>
+</a>
+<a class="flex items-center gap-4 text-on-primary-container px-8 py-3 hover:bg-on-primary-fixed-variant transition-all" href="{{ url_for('search_evidence') }}">
+<span class="material-symbols-outlined">search</span>
+<span>Search Evidence</span>
+</a>
+{% if session.get('role') == 'admin' %}
+<a class="flex items-center gap-4 text-on-primary-container px-8 py-3 hover:bg-on-primary-fixed-variant transition-all" href="{{ url_for('update_evidence') }}">
+<span class="material-symbols-outlined">edit</span>
+<span>Update Evidence</span>
+</a>
+<a class="flex items-center gap-4 text-on-primary-container px-8 py-3 hover:bg-on-primary-fixed-variant transition-all" href="{{ url_for('delete_evidence') }}">
+<span class="material-symbols-outlined">delete</span>
+<span>Delete Evidence</span>
+</a>
+{% endif %}
+<a class="flex items-center gap-4 text-on-primary-container px-8 py-3 hover:bg-on-primary-fixed-variant transition-all" href="{{ url_for('audit_logs') }}">
+<span class="material-symbols-outlined">history</span>
+<span>Audit Logs</span>
+</a>
+</nav>
+</aside>
+
+<main class="md:ml-sidebar-width pt-16 min-h-screen">
+<div class="p-margin-page max-w-container-max mx-auto">
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div class="mb-6 space-y-2">
+      {% for category, message in messages %}
+        <div class="p-4 rounded-lg {% if category == 'error' %}bg-red-100 text-red-800 border border-red-200{% elif category == 'warning' %}bg-amber-100 text-amber-800 border border-amber-200{% elif category == 'success' %}bg-green-100 text-green-800 border border-green-200{% else %}bg-blue-100 text-blue-800 border border-blue-200{% endif %}">
+          {{ message }}
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
+<div class="mb-8">
+<nav class="flex items-center gap-2 text-xs text-on-surface-variant mb-2">
+<a href="{{ url_for('dashboard') }}" class="hover:text-primary">Dashboard</a>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-on-surface font-bold">View Evidence</span>
+</nav>
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<h1 class="text-headline-lg font-bold text-primary mb-1">Evidence Management Repository</h1>
+<p class="text-body-md text-on-surface-variant">Review and manage forensic assets stored in the SQLite database.</p>
+</div>
+<div class="flex items-center gap-3">
+<a href="{{ url_for('add_evidence') }}" class="flex items-center gap-2 bg-primary-container text-on-primary px-4 py-2 rounded-lg text-xs font-bold hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-[18px]">add</span> Add New Evidence
+</a>
+</div>
+</div>
+</div>
+
+<!-- Dashboard Statistics Quick View -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter-md mb-8">
+<div class="bg-surface-container-lowest p-4 border border-outline-variant rounded-xl shadow-sm">
+<p class="text-xs font-bold text-on-surface-variant">Total Items</p>
+<p class="text-headline-lg font-bold">{{ total_items }}</p>
+</div>
+<div class="bg-surface-container-lowest p-4 border border-outline-variant rounded-xl shadow-sm border-l-4 border-l-green-600">
+<p class="text-xs font-bold text-on-surface-variant">Secured Files</p>
+<p class="text-headline-lg font-bold text-green-700">{{ secured_items }}</p>
+</div>
+<div class="bg-surface-container-lowest p-4 border border-outline-variant rounded-xl shadow-sm border-l-4 border-l-amber-500">
+<p class="text-xs font-bold text-on-surface-variant">Pending Review</p>
+<p class="text-headline-lg font-bold text-amber-600">{{ pending_items }}</p>
+</div>
+<div class="bg-surface-container-lowest p-4 border border-outline-variant rounded-xl shadow-sm border-l-4 border-l-red-600">
+<p class="text-xs font-bold text-on-surface-variant">Flagged Issues</p>
+<p class="text-headline-lg font-bold text-red-600">{{ flagged_items }}</p>
+</div>
+</div>
+
+<!-- Search & Table Card -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm overflow-hidden flex flex-col">
+<div class="p-4 border-b border-outline-variant bg-surface-bright flex flex-col md:flex-row gap-4">
+<form action="{{ url_for('view_evidence') }}" method="GET" class="relative flex-grow flex gap-2">
+  <div class="relative flex-grow">
+    <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+    <input class="w-full pl-10 pr-4 py-2 rounded-lg border border-outline-variant focus:border-primary focus:ring-2 focus:ring-primary/20 font-body-md text-xs bg-white" name="q" value="{{ query or '' }}" placeholder="Search by Evidence ID, Case ID, Title, Officer, or Status..." type="text"/>
+  </div>
+  <button type="submit" class="px-4 py-2 bg-primary-container text-on-primary rounded-lg text-xs font-bold hover:opacity-90">Filter</button>
+  {% if query %}
+  <a href="{{ url_for('view_evidence') }}" class="px-3 py-2 bg-gray-200 text-gray-700 rounded-lg text-xs font-bold hover:bg-gray-300 flex items-center">Clear</a>
+  {% endif %}
+</form>
+</div>
+
+<!-- Evidence Table -->
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse min-w-[800px]">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant">
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-wider">Evidence ID</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-wider">Case ID</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-wider">Title</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-wider">Officer</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-wider">Date Collected</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-wider">Status</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-center">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/30">
+{% if evidence_list %}
+  {% for item in evidence_list %}
+  <tr class="hover:bg-surface-bright transition-colors">
+    <td class="px-6 py-4 font-mono text-xs font-bold text-primary">{{ item['evidence_id'] }}</td>
+    <td class="px-6 py-4 font-mono text-xs">{{ item['case_id'] }}</td>
+    <td class="px-6 py-4 text-xs">
+      <div class="font-bold text-primary">{{ item['title'] }}</div>
+      {% if item['description'] %}
+        <div class="text-[11px] text-gray-500 truncate max-w-xs">{{ item['description'] }}</div>
+      {% endif %}
+    </td>
+    <td class="px-6 py-4 text-xs">{{ item['officer_name'] }}</td>
+    <td class="px-6 py-4 text-xs">{{ item['date_collected'] }}</td>
+    <td class="px-6 py-4 text-xs">
+      <span class="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider 
+        {% if item['status'] == 'Secured' %}bg-green-100 text-green-800
+        {% elif item['status'] == 'Under Lab Analysis' %}bg-blue-100 text-blue-800
+        {% elif item['status'] == 'Pending Review' %}bg-amber-100 text-amber-800
+        {% else %}bg-red-100 text-red-800{% endif %}">
+        {{ item['status'] }}
+      </span>
+    </td>
+    <td class="px-6 py-4 text-xs text-center">
+      {% if session.get('role') == 'admin' %}
+        <div class="flex items-center justify-center gap-2">
+          <a href="{{ url_for('update_evidence', evidence_id=item['evidence_id']) }}" class="p-1.5 bg-blue-50 text-blue-700 hover:bg-blue-100 rounded border border-blue-200" title="Edit Record">
+            <span class="material-symbols-outlined text-[16px]">edit</span>
+          </a>
+          <a href="{{ url_for('delete_evidence', evidence_id=item['evidence_id']) }}" class="p-1.5 bg-red-50 text-red-700 hover:bg-red-100 rounded border border-red-200" title="Delete Record">
+            <span class="material-symbols-outlined text-[16px]">delete</span>
+          </a>
+        </div>
+      {% else %}
+        <span class="text-xs text-gray-400 italic">View Only (Officer)</span>
+      {% endif %}
+    </td>
+  </tr>
+  {% endfor %}
+{% else %}
+  <tr>
+    <td colspan="7" class="px-6 py-8 text-center text-on-surface-variant text-xs">
+      No evidence records found matching the query.
+    </td>
+  </tr>
+{% endif %}
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</main>
+</body>
+</html>

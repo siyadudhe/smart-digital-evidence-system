@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ForensicShield - View Evidence</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-container": "#131b2e",
+                    "on-primary": "#ffffff",
+                    "error": "#ba1a1a",
+                    "surface-bright": "#f7f9fb",
+                    "on-surface": "#191c1e",
+                    "on-tertiary-fixed-variant": "#763300",
+                    "surface-container-low": "#f2f4f6",
+                    "surface-container-highest": "#e0e3e5",
+                    "on-secondary-fixed-variant": "#3a485c",
+                    "tertiary-container": "#331200",
+                    "on-primary-container": "#7c839b",
+                    "primary": "#000000",
+                    "on-error-container": "#93000a",
+                    "on-secondary-fixed": "#0d1c2f",
+                    "primary-fixed-dim": "#bec6e0",
+                    "secondary-fixed-dim": "#b9c7e0",
+                    "on-tertiary-fixed": "#331200",
+                    "tertiary-fixed-dim": "#ffb68e",
+                    "on-primary-fixed": "#131b2e",
+                    "outline": "#76777d",
+                    "error-container": "#ffdad6",
+                    "outline-variant": "#c6c6cd",
+                    "on-background": "#191c1e",
+                    "inverse-on-surface": "#eff1f3",
+                    "inverse-surface": "#2d3133",
+                    "secondary-fixed": "#d5e3fd",
+                    "on-secondary-container": "#57657b",
+                    "surface-variant": "#e0e3e5",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-fixed": "#dae2fd",
+                    "on-secondary": "#ffffff",
+                    "surface-container": "#eceef0",
+                    "on-tertiary": "#ffffff",
+                    "secondary": "#515f74",
+                    "surface-tint": "#565e74",
+                    "on-error": "#ffffff",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "surface": "#f7f9fb",
+                    "secondary-container": "#d5e3fd",
+                    "background": "#f7f9fb",
+                    "surface-container-high": "#e6e8ea",
+                    "inverse-primary": "#bec6e0",
+                    "on-surface-variant": "#45464d",
+                    "tertiary": "#000000",
+                    "tertiary-fixed": "#ffdbca",
+                    "on-tertiary-container": "#cf6721",
+                    "surface-dim": "#d8dadc"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "base": "4px",
+                    "margin-page": "32px",
+                    "container-max": "1440px",
+                    "sidebar-width": "280px",
+                    "gutter-md": "24px"
+            },
+            "fontFamily": {
+                    "body-md": ["Public Sans"],
+                    "headline-md": ["Public Sans"],
+                    "headline-lg-mobile": ["Public Sans"],
+                    "label-md": ["Public Sans"],
+                    "label-sm": ["Public Sans"],
+                    "body-lg": ["Public Sans"],
+                    "headline-lg": ["Public Sans"]
+            },
+            "fontSize": {
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "500"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg": ["30px", {"lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Public Sans', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        /* Custom scrollbar for data density */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #c6c6cd; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #76777d; }
+    </style>
+</head>
+<body class="bg-background text-on-surface">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-margin-page h-16 bg-surface-container-highest dark:bg-primary-container border-b border-outline-variant dark:border-outline shadow-sm">
+<div class="flex items-center gap-4">
+<span class="text-headline-md font-headline-md font-bold text-on-surface dark:text-on-primary">ForensicShield</span>
+</div>
+<div class="flex items-center gap-6">
+<div class="hidden md:flex items-center gap-8 mr-8">
+<a class="text-primary dark:text-on-primary font-bold border-b-2 border-primary text-label-md font-label-md" href="#">View Evidence</a>
+<a class="text-on-surface-variant dark:text-on-primary-container hover:bg-surface-container-high dark:hover:bg-primary transition-colors text-label-md font-label-md px-2 py-1 rounded" href="#">Dashboard</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-on-surface-variant dark:text-on-primary hover:bg-surface-container-high p-2 rounded-full transition-colors">notifications</button>
+<button class="material-symbols-outlined text-on-surface-variant dark:text-on-primary hover:bg-surface-container-high p-2 rounded-full transition-colors">help</button>
+<div class="h-8 w-[1px] bg-outline-variant"></div>
+<button class="text-label-md font-label-md text-on-surface-variant dark:text-on-primary hover:bg-surface-container-high px-3 py-1 rounded transition-colors">Logout</button>
+<img class="w-8 h-8 rounded-full border border-outline object-cover" data-alt="A professional portrait of a digital forensics officer in a high-tech laboratory setting. The officer is wearing a clean, dark navy uniform with a silver badge, appearing focused and meticulous. The background features blurred digital monitors with flowing data grids and forensic tools, creating an authoritative and secure law enforcement atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsuI6TUcq8PaIYjB7A2Uc4SLLyoTO4yMyKa8cwI3NtSudlp1LKazSPzrey7A-deQxwCh1EjWIjaoTrxSnP04OOKe3aYg28ucwKIXwsBcKlUJPTy51ugyHIsCfpQmcOa6qRxVlJQ_NXTZZFQ6_-tn2qwWxK0X7bLQWYNob-IZoMOJsH3Ow5QtNthG7a8CPMeWw8PwAVfEljo1hGPJLGhEMRmwyDsKxX_jZqIlVKkAmpbxIcSWdQPnLCQA"/>
+</div>
+</div>
+</header>
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-full w-sidebar-width flex flex-col py-6 z-40 bg-primary-container dark:bg-black hidden md:flex">
+<div class="px-8 mb-10 pt-16">
+<div class="flex items-center gap-3 mb-2">
+<div class="w-10 h-10 bg-on-primary rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-primary-container">security</span>
+</div>
+<div>
+<h2 class="text-headline-md font-headline-md text-on-primary leading-tight">Digital Evidence</h2>
+<p class="text-label-sm font-label-sm text-on-primary-container opacity-80 uppercase tracking-widest">Unit 402-B</p>
+</div>
+</div>
+</div>
+<nav class="flex-grow space-y-1">
+<a class="flex items-center gap-4 text-on-primary-container dark:text-surface-variant px-8 py-3 hover:bg-on-primary-fixed-variant dark:hover:bg-primary-container transition-all text-label-md font-label-md" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-4 text-on-primary-container dark:text-surface-variant px-8 py-3 hover:bg-on-primary-fixed-variant dark:hover:bg-primary-container transition-all text-label-md font-label-md" href="#">
+<span class="material-symbols-outlined">add_box</span>
+                Add Evidence
+            </a>
+<a class="flex items-center gap-4 bg-primary dark:bg-surface-container-highest text-on-primary dark:text-primary rounded-l-full ml-4 pl-4 py-3 border-l-4 border-on-tertiary-container text-label-md font-label-md scale-[0.98] transition-transform duration-150" href="#">
+<span class="material-symbols-outlined">table_view</span>
+                View Evidence
+            </a>
+<a class="flex items-center gap-4 text-on-primary-container dark:text-surface-variant px-8 py-3 hover:bg-on-primary-fixed-variant dark:hover:bg-primary-container transition-all text-label-md font-label-md" href="#">
+<span class="material-symbols-outlined">search</span>
+                Search Evidence
+            </a>
+<a class="flex items-center gap-4 text-on-primary-container dark:text-surface-variant px-8 py-3 hover:bg-on-primary-fixed-variant dark:hover:bg-primary-container transition-all text-label-md font-label-md" href="#">
+<span class="material-symbols-outlined">edit</span>
+                Update Evidence
+            </a>
+</nav>
+<div class="mt-auto border-t border-on-primary-fixed-variant/20 pt-4">
+<a class="flex items-center gap-4 text-on-primary-container dark:text-surface-variant px-8 py-3 hover:bg-on-primary-fixed-variant dark:hover:bg-primary-container transition-all text-label-md font-label-md" href="#">
+<span class="material-symbols-outlined">settings</span>
+                Settings
+            </a>
+<a class="flex items-center gap-4 text-on-primary-container dark:text-surface-variant px-8 py-3 hover:bg-on-primary-fixed-variant dark:hover:bg-primary-container transition-all text-label-md font-label-md" href="#">
+<span class="material-symbols-outlined">logout</span>
+                Exit
+            </a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="md:ml-sidebar-width pt-16 min-h-screen">
+<div class="p-margin-page max-w-container-max mx-auto">
+<!-- Breadcrumbs & Header -->
+<div class="mb-8">
+<nav class="flex items-center gap-2 text-label-md font-label-md text-on-surface-variant mb-2">
+<span class="hover:text-primary cursor-pointer">Unit 402-B</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-on-surface">View Evidence</span>
+</nav>
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-primary mb-1">Evidence Management</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Review and manage forensic assets for active investigations.</p>
+</div>
+<div class="flex items-center gap-3">
+<button class="flex items-center gap-2 bg-primary-container text-on-primary px-4 py-2 rounded-lg font-label-md text-label-md hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-[18px]">download</span>
+                            Export CSV
+                        </button>
+</div>
+</div>
+</div>
+<!-- Dashboard Statistics Quick View -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter-md mb-8">
+<div class="bg-surface-container-lowest p-4 border border-outline-variant rounded-xl shadow-sm">
+<p class="text-label-md font-label-md text-on-surface-variant">Total Evidence Items</p>
+<p class="text-headline-lg font-headline-lg">1,284</p>
+</div>
+<div class="bg-surface-container-lowest p-4 border border-outline-variant rounded-xl shadow-sm border-l-4 border-l-green-600">
+<p class="text-label-md font-label-md text-on-surface-variant">Secured Files</p>
+<p class="text-headline-lg font-headline-lg text-green-700">1,240</p>
+</div>
+<div class="bg-surface-container-lowest p-4 border border-outline-variant rounded-xl shadow-sm border-l-4 border-l-amber-500">
+<p class="text-label-md font-label-md text-on-surface-variant">Pending Review</p>
+<p class="text-headline-lg font-headline-lg text-amber-600">38</p>
+</div>
+<div class="bg-surface-container-lowest p-4 border border-outline-variant rounded-xl shadow-sm border-l-4 border-l-error">
+<p class="text-label-md font-label-md text-on-surface-variant">Flagged Issues</p>
+<p class="text-headline-lg font-headline-lg text-error">6</p>
+</div>
+</div>
+<!-- Content Area: Search & Table Card -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm overflow-hidden flex flex-col">
+<!-- Search & Filters -->
+<div class="p-4 border-b border-outline-variant bg-surface-bright flex flex-col md:flex-row gap-4">
+<div class="relative flex-grow">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full pl-10 pr-4 py-2 rounded-lg border border-outline-variant focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all font-body-md text-body-md bg-white" placeholder="Search by Case ID, Officer, or Title..." type="text"/>
+</div>
+<div class="flex items-center gap-2">
+<button class="flex items-center gap-2 px-4 py-2 border border-outline-variant rounded-lg font-label-md text-label-md hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[18px]">filter_list</span>
+                            Filters
+                        </button>
+<button class="flex items-center gap-2 px-4 py-2 border border-outline-variant rounded-lg font-label-md text-label-md hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span>
+                            Date Range
+                        </button>
+</div>
+</div>
+<!-- Evidence Table -->
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse min-w-[800px]">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant">
+<th class="px-6 py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Evidence ID</th>
+<th class="px-6 py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Case ID</th>
+<th class="px-6 py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Title</th>
+<th class="px-6 py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Officer Name</th>
+<th class="px-6 py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Status</th>
+<th class="px-6 py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider text-center">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/30">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-3 font-body-md text-body-md font-mono text-primary">#E-2024-00124</td>
+<td class="px-6 py-3 font-body-md text-body-md">CR-882-X</td>
+<td class="px-6 py-3 font-body-md text-body-md">Mobile Device - Forensic Clone</td>
+<td class="px-6 py-3 flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-secondary-container text-on-secondary-container text-[10px] flex items-center justify-center font-bold">JD</div>
+<span class="font-body-md text-body-md">Det. John Doe</span>
+</td>
+<td class="px-6 py-3">
+<span class="px-2 py-0.5 rounded-full bg-green-100 text-green-800 text-label-sm font-label-sm border border-green-200">Secured</span>
+</td>
+<td class="px-6 py-3 text-center">
+<div class="flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-1.5 hover:bg-surface-container-high rounded text-on-surface-variant transition-colors" title="Edit Evidence">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+<button class="p-1.5 hover:bg-error-container hover:text-error rounded text-on-surface-variant transition-colors" title="Delete Evidence">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-low transition-colors group bg-surface-container-lowest">
+<td class="px-6 py-3 font-body-md text-body-md font-mono text-primary">#E-2024-00125</td>
+<td class="px-6 py-3 font-body-md text-body-md">CR-104-Y</td>
+<td class="px-6 py-3 font-body-md text-body-md">Network Traffic Log - CSV</td>
+<td class="px-6 py-3 flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-primary-fixed text-on-primary-fixed text-[10px] flex items-center justify-center font-bold">SM</div>
+<span class="font-body-md text-body-md">Insp. Sarah Miller</span>
+</td>
+<td class="px-6 py-3">
+<span class="px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 text-label-sm font-label-sm border border-amber-200">Pending Review</span>
+</td>
+<td class="px-6 py-3 text-center">
+<div class="flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-1.5 hover:bg-surface-container-high rounded text-on-surface-variant transition-colors">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+<button class="p-1.5 hover:bg-error-container hover:text-error rounded text-on-surface-variant transition-colors">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-3 font-body-md text-body-md font-mono text-primary">#E-2024-00126</td>
+<td class="px-6 py-3 font-body-md text-body-md">CR-882-X</td>
+<td class="px-6 py-3 font-body-md text-body-md">Crypto Wallet Seed Phrase (Physical)</td>
+<td class="px-6 py-3 flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-secondary-container text-on-secondary-container text-[10px] flex items-center justify-center font-bold">JD</div>
+<span class="font-body-md text-body-md">Det. John Doe</span>
+</td>
+<td class="px-6 py-3">
+<span class="px-2 py-0.5 rounded-full bg-error-container text-error text-label-sm font-label-sm border border-error/20">Flagged</span>
+</td>
+<td class="px-6 py-3 text-center">
+<div class="flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-1.5 hover:bg-surface-container-high rounded text-on-surface-variant transition-colors">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+<button class="p-1.5 hover:bg-error-container hover:text-error rounded text-on-surface-variant transition-colors">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container-low transition-colors group bg-surface-container-lowest">
+<td class="px-6 py-3 font-body-md text-body-md font-mono text-primary">#E-2024-00127</td>
+<td class="px-6 py-3 font-body-md text-body-md">CR-331-P</td>
+<td class="px-6 py-3 font-body-md text-body-md">CCTV Footage - Unit 04</td>
+<td class="px-6 py-3 flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-tertiary-fixed text-on-tertiary-fixed text-[10px] flex items-center justify-center font-bold">AB</div>
+<span class="font-body-md text-body-md">Sgt. Alex Black</span>
+</td>
+<td class="px-6 py-3">
+<span class="px-2 py-0.5 rounded-full bg-green-100 text-green-800 text-label-sm font-label-sm border border-green-200">Secured</span>
+</td>
+<td class="px-6 py-3 text-center">
+<div class="flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-1.5 hover:bg-surface-container-high rounded text-on-surface-variant transition-colors">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+<button class="p-1.5 hover:bg-error-container hover:text-error rounded text-on-surface-variant transition-colors">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-3 font-body-md text-body-md font-mono text-primary">#E-2024-00128</td>
+<td class="px-6 py-3 font-body-md text-body-md">CR-220-Q</td>
+<td class="px-6 py-3 font-body-md text-body-md">Deleted Database Records (SQL)</td>
+<td class="px-6 py-3 flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-primary-fixed text-on-primary-fixed text-[10px] flex items-center justify-center font-bold">SM</div>
+<span class="font-body-md text-body-md">Insp. Sarah Miller</span>
+</td>
+<td class="px-6 py-3">
+<span class="px-2 py-0.5 rounded-full bg-green-100 text-green-800 text-label-sm font-label-sm border border-green-200">Secured</span>
+</td>
+<td class="px-6 py-3 text-center">
+<div class="flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-1.5 hover:bg-surface-container-high rounded text-on-surface-variant transition-colors">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+<button class="p-1.5 hover:bg-error-container hover:text-error rounded text-on-surface-variant transition-colors">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 6 -->
+<tr class="hover:bg-surface-container-low transition-colors group bg-surface-container-lowest">
+<td class="px-6 py-3 font-body-md text-body-md font-mono text-primary">#E-2024-00129</td>
+<td class="px-6 py-3 font-body-md text-body-md">CR-500-Z</td>
+<td class="px-6 py-3 font-body-md text-body-md">Encrypted External SSD</td>
+<td class="px-6 py-3 flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-tertiary-fixed text-on-tertiary-fixed text-[10px] flex items-center justify-center font-bold">AB</div>
+<span class="font-body-md text-body-md">Sgt. Alex Black</span>
+</td>
+<td class="px-6 py-3">
+<span class="px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 text-label-sm font-label-sm border border-amber-200">Processing</span>
+</td>
+<td class="px-6 py-3 text-center">
+<div class="flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-1.5 hover:bg-surface-container-high rounded text-on-surface-variant transition-colors">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+<button class="p-1.5 hover:bg-error-container hover:text-error rounded text-on-surface-variant transition-colors">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="p-4 border-t border-outline-variant bg-surface-bright flex items-center justify-between">
+<p class="text-label-md font-label-md text-on-surface-variant">Showing 1 to 6 of 1,284 entries</p>
+<div class="flex items-center gap-1">
+<button class="w-8 h-8 flex items-center justify-center rounded border border-outline-variant hover:bg-surface-container-low transition-colors disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined text-[18px]">chevron_left</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded bg-primary-container text-on-primary font-label-md text-label-md">1</button>
+<button class="w-8 h-8 flex items-center justify-center rounded border border-outline-variant hover:bg-surface-container-low transition-colors font-label-md text-label-md">2</button>
+<button class="w-8 h-8 flex items-center justify-center rounded border border-outline-variant hover:bg-surface-container-low transition-colors font-label-md text-label-md">3</button>
+<span class="px-2">...</span>
+<button class="w-8 h-8 flex items-center justify-center rounded border border-outline-variant hover:bg-surface-container-low transition-colors font-label-md text-label-md">214</button>
+<button class="w-8 h-8 flex items-center justify-center rounded border border-outline-variant hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Contextual Help / Status Cards -->
+<div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-gutter-md">
+<div class="bg-primary-container p-6 rounded-xl text-on-primary flex items-start gap-4">
+<div class="p-3 bg-on-primary/10 rounded-full">
+<span class="material-symbols-outlined text-on-primary">verified_user</span>
+</div>
+<div>
+<h4 class="font-headline-md text-headline-md mb-2">Immutable Audit Trail</h4>
+<p class="font-body-md text-body-md opacity-80">Every action taken on this page is logged and time-stamped. Unauthorized modifications are flagged immediately to the supervising officer.</p>
+</div>
+</div>
+<div class="bg-surface-container-high p-6 rounded-xl flex items-start gap-4 border border-outline-variant">
+<div class="p-3 bg-primary-container/10 rounded-full">
+<span class="material-symbols-outlined text-primary-container">info</span>
+</div>
+<div>
+<h4 class="font-headline-md text-headline-md mb-2 text-primary">Need Assistance?</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">Review the evidence submission guidelines or contact the Digital Forensics Unit Lead for technical support regarding file corruption.</p>
+<button class="mt-4 font-label-md text-label-md text-primary underline decoration-primary/30 hover:decoration-primary">Access Manual</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Interactive Elements Scripts -->
+<script>
+        // Simple search highlight simulation
+        const searchInput = document.querySelector('input[type="text"]');
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            const rows = document.querySelectorAll('tbody tr');
+            
+            rows.forEach(row => {
+                const text = row.innerText.toLowerCase();
+                if (text.includes(query)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+
+        // Hover effect for table rows
+        const tableRows = document.querySelectorAll('tbody tr');
+        tableRows.forEach(row => {
+            row.addEventListener('mouseenter', () => {
+                row.classList.add('shadow-inner');
+            });
+            row.addEventListener('mouseleave', () => {
+                row.classList.remove('shadow-inner');
+            });
+        });
+    </script>
+</body></html>

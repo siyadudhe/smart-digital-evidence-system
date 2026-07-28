@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Add Evidence | ForensicShield Smart Digital Evidence System</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+        darkMode: "class",
+        theme: {
+            extend: {
+                "colors": {
+                    "primary-container": "#131b2e",
+                    "on-primary": "#ffffff",
+                    "surface-bright": "#f7f9fb",
+                    "on-surface": "#191c1e",
+                    "surface-container-lowest": "#ffffff",
+                    "primary": "#000000",
+                    "outline-variant": "#c6c6cd",
+                    "secondary": "#515f74"
+                },
+                "spacing": { "margin-page": "32px", "sidebar-width": "280px", "gutter-md": "24px" },
+                "fontFamily": { "body-md": ["Public Sans"], "headline-lg": ["Public Sans"] }
+            }
+        }
+    }
+</script>
+<style>
+    body { font-family: 'Public Sans', sans-serif; background-color: #f7f9fb; }
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    .form-card { box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05); }
+</style>
+</head>
+<body class="text-on-surface overflow-x-hidden">
+
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-margin-page h-16 bg-surface-container-highest dark:bg-primary-container border-b border-outline-variant shadow-sm">
+<div class="flex items-center gap-4">
+<span class="text-headline-md font-bold text-on-surface dark:text-on-primary">ForensicShield</span>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-3">
+<span class="text-label-md font-bold text-on-surface dark:text-on-primary">{{ session.get('full_name') }}</span>
+<a class="text-label-md text-primary dark:text-on-primary ml-2 hover:underline" href="{{ url_for('logout') }}">Logout</a>
+</div>
+</div>
+</header>
+
+<aside class="fixed left-0 top-0 h-full w-sidebar-width flex flex-col py-6 z-40 bg-primary-container hidden md:flex">
+<div class="px-8 mb-10 flex items-center gap-4 mt-16">
+<div class="w-10 h-10 bg-on-primary rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-primary-container" style="font-variation-settings: 'FILL' 1;">security</span>
+</div>
+<div>
+<h2 class="text-headline-md text-on-primary leading-tight font-bold">Digital Evidence</h2>
+<p class="text-xs text-on-primary-container opacity-80 uppercase tracking-widest">{{ session.get('badge_number') }}</p>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-4 text-on-primary-container px-8 py-3 hover:bg-on-primary-fixed-variant transition-all" href="{{ url_for('dashboard') }}">
+<span class="material-symbols-outlined">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-4 bg-primary text-on-primary rounded-l-full ml-4 pl-4 py-3 border-l-4 border-amber-500 font-bold" href="{{ url_for('add_evidence') }}">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add_box</span>
+<span>Add Evidence</span>
+</a>
+<a class="flex items-center gap-4 text-on-primary-container px-8 py-3 hover:bg-on-primary-fixed-variant transition-all" href="{{ url_for('view_evidence') }}">
+<span class="material-symbols-outlined">table_view</span>
+<span>View Evidence</span>
+</a>
+<a class="flex items-center gap-4 text-on-primary-container px-8 py-3 hover:bg-on-primary-fixed-variant transition-all" href="{{ url_for('search_evidence') }}">
+<span class="material-symbols-outlined">search</span>
+<span>Search Evidence</span>
+</a>
+{% if session.get('role') == 'admin' %}
+<a class="flex items-center gap-4 text-on-primary-container px-8 py-3 hover:bg-on-primary-fixed-variant transition-all" href="{{ url_for('update_evidence') }}">
+<span class="material-symbols-outlined">edit</span>
+<span>Update Evidence</span>
+</a>
+<a class="flex items-center gap-4 text-on-primary-container px-8 py-3 hover:bg-on-primary-fixed-variant transition-all" href="{{ url_for('delete_evidence') }}">
+<span class="material-symbols-outlined">delete</span>
+<span>Delete Evidence</span>
+</a>
+{% endif %}
+<a class="flex items-center gap-4 text-on-primary-container px-8 py-3 hover:bg-on-primary-fixed-variant transition-all" href="{{ url_for('audit_logs') }}">
+<span class="material-symbols-outlined">history</span>
+<span>Audit Logs</span>
+</a>
+</nav>
+</aside>
+
+<main class="md:ml-sidebar-width mt-16 p-margin-page min-h-screen">
+<div class="max-w-[1000px] mx-auto pt-8">
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div class="mb-6 space-y-2">
+      {% for category, message in messages %}
+        <div class="p-4 rounded-lg {% if category == 'error' %}bg-red-100 text-red-800 border border-red-200{% elif category == 'warning' %}bg-amber-100 text-amber-800 border border-amber-200{% elif category == 'success' %}bg-green-100 text-green-800 border border-green-200{% else %}bg-blue-100 text-blue-800 border border-blue-200{% endif %}">
+          {{ message }}
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
+<nav class="flex items-center gap-2 text-xs text-on-surface-variant mb-6">
+<a href="{{ url_for('dashboard') }}" class="hover:text-primary">Dashboard</a>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="hover:text-primary">Evidence Management</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-primary font-bold">New Entry</span>
+</nav>
+
+<header class="mb-10">
+<h1 class="font-headline-lg text-headline-lg text-primary font-bold tracking-tight">Add New Evidence Record</h1>
+<p class="text-body-lg text-secondary mt-2">Submit a new digital artifact into the secure SQLite repository. Ensure all fields comply with chain-of-custody protocols.</p>
+</header>
+
+<div class="bg-surface-container-lowest rounded-xl p-8 form-card border-l-[6px] border-l-primary-container border border-outline-variant">
+<form class="space-y-8" action="{{ url_for('add_evidence') }}" method="POST">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+<div class="space-y-2">
+<label class="text-xs font-bold text-on-surface-variant flex items-center gap-2" for="evidence_id">
+<span class="material-symbols-outlined text-[18px]">fingerprint</span> EVIDENCE ID *
+</label>
+<input class="w-full bg-white border border-outline-variant rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary focus:border-transparent outline-none font-body-md" id="evidence_id" name="evidence_id" placeholder="e.g. EV-2024-009" required type="text"/>
+</div>
+
+<div class="space-y-2">
+<label class="text-xs font-bold text-on-surface-variant flex items-center gap-2" for="case_id">
+<span class="material-symbols-outlined text-[18px]">folder</span> CASE ID *
+</label>
+<input class="w-full bg-white border border-outline-variant rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary focus:border-transparent outline-none font-body-md" id="case_id" name="case_id" placeholder="e.g. CASE-DE-99" required type="text"/>
+</div>
+
+<div class="md:col-span-2 space-y-2">
+<label class="text-xs font-bold text-on-surface-variant flex items-center gap-2" for="title">
+<span class="material-symbols-outlined text-[18px]">title</span> EVIDENCE TITLE *
+</label>
+<input class="w-full bg-white border border-outline-variant rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary focus:border-transparent outline-none font-body-md" id="title" name="title" placeholder="e.g. Encrypted External Hard Drive" required type="text"/>
+</div>
+
+<div class="space-y-2">
+<label class="text-xs font-bold text-on-surface-variant flex items-center gap-2" for="officer_name">
+<span class="material-symbols-outlined text-[18px]">badge</span> OFFICER NAME
+</label>
+<input class="w-full bg-white border border-outline-variant rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary focus:border-transparent outline-none font-body-md" id="officer_name" name="officer_name" value="{{ session.get('full_name') }}" required type="text"/>
+</div>
+
+<div class="space-y-2">
+<label class="text-xs font-bold text-on-surface-variant flex items-center gap-2" for="date_collected">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span> DATE OF COLLECTION
+</label>
+<input class="w-full bg-white border border-outline-variant rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary focus:border-transparent outline-none font-body-md" id="date_collected" name="date_collected" type="date"/>
+</div>
+
+<div class="space-y-2 md:col-span-2">
+<label class="text-xs font-bold text-on-surface-variant flex items-center gap-2" for="status">
+<span class="material-symbols-outlined text-[18px]">shield</span> INITIAL STATUS
+</label>
+<select class="w-full bg-white border border-outline-variant rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary focus:border-transparent outline-none font-body-md" id="status" name="status">
+  <option value="Secured" selected>Secured</option>
+  <option value="Under Lab Analysis">Under Lab Analysis</option>
+  <option value="Pending Review">Pending Review</option>
+  <option value="Flagged">Flagged</option>
+</select>
+</div>
+</div>
+
+<div class="pt-4 border-t border-outline-variant space-y-2">
+<label class="text-xs font-bold text-on-surface-variant block mb-2" for="description">EVIDENCE DESCRIPTION &amp; CHAIN OF CUSTODY NOTES</label>
+<textarea class="w-full bg-white border border-outline-variant rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary focus:border-transparent outline-none font-body-md" id="description" name="description" placeholder="Describe the physical condition, serial numbers, cryptographic hashes, or scene context..." rows="4"></textarea>
+</div>
+
+<div class="flex items-center justify-end gap-4 pt-4">
+<a class="px-6 py-3 rounded-lg border border-primary text-primary font-bold hover:bg-surface-container-low transition-colors" href="{{ url_for('view_evidence') }}">Cancel</a>
+<button class="px-8 py-3 rounded-lg bg-primary-container text-on-primary font-bold flex items-center gap-2 hover:opacity-90 active:scale-95 transition-all shadow-md" type="submit">
+<span class="material-symbols-outlined text-[20px]">save</span> Save Evidence Record
+</button>
+</div>
+</form>
+</div>
+</div>
+</main>
+
+</body>
+</html>

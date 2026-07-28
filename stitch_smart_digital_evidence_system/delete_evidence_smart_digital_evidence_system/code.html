@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Delete Evidence | ForensicShield</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-container": "#131b2e",
+                    "on-primary": "#ffffff",
+                    "error": "#ba1a1a",
+                    "surface-bright": "#f7f9fb",
+                    "on-surface": "#191c1e",
+                    "on-tertiary-fixed-variant": "#763300",
+                    "surface-container-low": "#f2f4f6",
+                    "surface-container-highest": "#e0e3e5",
+                    "on-secondary-fixed-variant": "#3a485c",
+                    "tertiary-container": "#331200",
+                    "on-primary-container": "#7c839b",
+                    "primary": "#000000",
+                    "on-error-container": "#93000a",
+                    "on-secondary-fixed": "#0d1c2f",
+                    "primary-fixed-dim": "#bec6e0",
+                    "secondary-fixed-dim": "#b9c7e0",
+                    "on-tertiary-fixed": "#331200",
+                    "tertiary-fixed-dim": "#ffb68e",
+                    "on-primary-fixed": "#131b2e",
+                    "outline": "#76777d",
+                    "error-container": "#ffdad6",
+                    "outline-variant": "#c6c6cd",
+                    "on-background": "#191c1e",
+                    "inverse-on-surface": "#eff1f3",
+                    "inverse-surface": "#2d3133",
+                    "secondary-fixed": "#d5e3fd",
+                    "on-secondary-container": "#57657b",
+                    "surface-variant": "#e0e3e5",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-fixed": "#dae2fd",
+                    "on-secondary": "#ffffff",
+                    "surface-container": "#eceef0",
+                    "on-tertiary": "#ffffff",
+                    "secondary": "#515f74",
+                    "surface-tint": "#565e74",
+                    "on-error": "#ffffff",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "surface": "#f7f9fb",
+                    "secondary-container": "#d5e3fd",
+                    "background": "#f7f9fb",
+                    "surface-container-high": "#e6e8ea",
+                    "inverse-primary": "#bec6e0",
+                    "on-surface-variant": "#45464d",
+                    "tertiary": "#000000",
+                    "tertiary-fixed": "#ffdbca",
+                    "on-tertiary-container": "#cf6721",
+                    "surface-dim": "#d8dadc"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "base": "4px",
+                    "margin-page": "32px",
+                    "container-max": "1440px",
+                    "sidebar-width": "280px",
+                    "gutter-md": "24px"
+            },
+            "fontFamily": {
+                    "body-md": ["Public Sans"],
+                    "headline-md": ["Public Sans"],
+                    "headline-lg-mobile": ["Public Sans"],
+                    "label-md": ["Public Sans"],
+                    "label-sm": ["Public Sans"],
+                    "body-lg": ["Public Sans"],
+                    "headline-lg": ["Public Sans"]
+            },
+            "fontSize": {
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "500"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg": ["30px", {"lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Public Sans', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .sidebar-active-pill {
+            clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+        }
+        .modal-overlay {
+            backdrop-filter: blur(4px);
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-margin-page h-16 bg-surface-container-highest shadow-sm border-b border-outline-variant">
+<div class="flex items-center gap-4">
+<span class="text-headline-md font-headline-md font-bold text-on-surface">ForensicShield</span>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-full hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-primary" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 rounded-full hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-primary" data-icon="help">help</span>
+</button>
+</div>
+<div class="h-8 w-[1px] bg-outline-variant"></div>
+<div class="flex items-center gap-3">
+<span class="text-label-md font-label-md text-on-surface-variant">Officer Profile</span>
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary text-xs font-bold">JD</div>
+<button class="text-label-md font-label-md text-primary hover:underline">Logout</button>
+</div>
+</div>
+</header>
+<!-- SideNavBar -->
+<nav class="fixed left-0 top-0 h-full w-sidebar-width flex flex-col py-6 z-40 bg-primary-container pt-20">
+<div class="px-8 mb-8">
+<h2 class="text-headline-md font-headline-md text-on-primary">Digital Evidence</h2>
+<p class="text-label-md font-label-md text-on-primary-container opacity-80">Unit 402-B</p>
+</div>
+<div class="flex-1 flex flex-col gap-1">
+<a class="flex items-center gap-4 text-on-primary-container px-8 py-3 hover:bg-on-primary-fixed-variant transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-label-md font-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-4 text-on-primary-container px-8 py-3 hover:bg-on-primary-fixed-variant transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="add_box">add_box</span>
+<span class="text-label-md font-label-md">Add Evidence</span>
+</a>
+<a class="flex items-center gap-4 text-on-primary-container px-8 py-3 hover:bg-on-primary-fixed-variant transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="table_view">table_view</span>
+<span class="text-label-md font-label-md">View Evidence</span>
+</a>
+<a class="flex items-center gap-4 text-on-primary-container px-8 py-3 hover:bg-on-primary-fixed-variant transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+<span class="text-label-md font-label-md">Search Evidence</span>
+</a>
+<!-- Active State: Update/Delete context falls under Update Evidence logic or separate maintenance -->
+<a class="flex items-center gap-4 bg-primary text-on-primary rounded-l-full ml-4 pl-4 py-3 border-l-4 border-on-tertiary-container scale-[0.98] transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="edit">edit</span>
+<span class="text-label-md font-label-md">Update Evidence</span>
+</a>
+</div>
+<div class="mt-auto pt-6 border-t border-on-primary-container/20">
+<a class="flex items-center gap-4 text-on-primary-container px-8 py-3 hover:bg-on-primary-fixed-variant transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="text-label-md font-label-md">Settings</span>
+</a>
+<a class="flex items-center gap-4 text-on-primary-container px-8 py-3 hover:bg-on-primary-fixed-variant transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span class="text-label-md font-label-md">Exit</span>
+</a>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="ml-sidebar-width pt-16 min-h-screen">
+<div class="max-w-[1000px] mx-auto p-margin-page">
+<!-- Breadcrumbs -->
+<nav class="flex items-center gap-2 mb-6 text-on-surface-variant">
+<span class="text-label-md font-label-md">Evidence Management</span>
+<span class="material-symbols-outlined text-sm" data-icon="chevron_right">chevron_right</span>
+<span class="text-label-md font-label-md text-primary">Purge Record</span>
+</nav>
+<header class="mb-10">
+<h1 class="text-headline-lg font-headline-lg text-primary mb-2">Delete Evidence Record</h1>
+<p class="text-body-lg font-body-lg text-on-surface-variant">Permanent removal of digital assets from the secure vault. This action is irreversible and logged for audit purposes.</p>
+</header>
+<!-- Step 1: Search -->
+<section class="mb-12">
+<div class="flex items-center gap-4 mb-4">
+<span class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold text-sm">1</span>
+<h2 class="text-headline-md font-headline-md">Identify Record</h2>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant shadow-sm max-w-2xl">
+<label class="block text-label-md font-label-md text-on-surface-variant mb-2">Search by Evidence ID or Case Number</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline" data-icon="search">search</span>
+<input class="w-full pl-12 pr-4 py-3 border border-outline rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-body-md font-body-md" id="search-input" placeholder="e.g. EV-2023-8902-X" type="text"/>
+</div>
+<div class="mt-4 flex gap-2">
+<button class="px-6 py-2 bg-primary-container text-on-primary rounded-lg font-label-md text-label-md hover:bg-primary transition-all" onclick="simulateSearch()">Locate Evidence</button>
+</div>
+</div>
+</section>
+<!-- Step 2: Summary Card (Initially Hidden, shown after simulateSearch) -->
+<section class="mb-12 hidden opacity-0 transition-opacity duration-500" id="evidence-summary">
+<div class="flex items-center gap-4 mb-4">
+<span class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold text-sm">2</span>
+<h2 class="text-headline-md font-headline-md">Review Details</h2>
+</div>
+<div class="bg-surface-container-lowest border-l-4 border-tertiary rounded-xl border-t border-r border-b border-outline-variant shadow-sm overflow-hidden">
+<div class="p-6">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="col-span-2 space-y-4">
+<div class="flex items-center gap-3">
+<span class="px-3 py-1 bg-surface-container-high rounded-full text-label-sm font-label-sm uppercase tracking-wider text-on-surface-variant">Digital Asset</span>
+<span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-label-sm font-label-sm uppercase tracking-wider">Secured</span>
+</div>
+<h3 class="text-headline-md font-headline-md text-primary">Encrypted Forensic Image: Case #8902-X</h3>
+<div class="grid grid-cols-2 gap-4 text-body-md font-body-md">
+<div>
+<p class="text-on-surface-variant text-label-md uppercase font-label-md">ID</p>
+<p class="text-primary font-bold">EV-2023-8902-X</p>
+</div>
+<div>
+<p class="text-on-surface-variant text-label-md uppercase font-label-md">Custodian</p>
+<p class="text-primary">Det. Sarah Mitchell</p>
+</div>
+<div>
+<p class="text-on-surface-variant text-label-md uppercase font-label-md">Date Acquired</p>
+<p class="text-primary">Oct 14, 2023</p>
+</div>
+<div>
+<p class="text-on-surface-variant text-label-md uppercase font-label-md">Size</p>
+<p class="text-primary">4.2 GB</p>
+</div>
+</div>
+</div>
+<div class="flex flex-col justify-center border-l border-outline-variant pl-8 space-y-4">
+<p class="text-label-sm font-label-sm text-on-surface-variant italic">Warning: Deletion involves cryptographic wiping and cannot be undone.</p>
+<button class="w-full py-4 bg-error text-on-primary rounded-lg font-headline-md text-headline-md flex items-center justify-center gap-2 hover:bg-red-700 transition-all shadow-md active:scale-[0.98]" onclick="openModal()">
+<span class="material-symbols-outlined" data-icon="delete_forever">delete_forever</span>
+                                    Delete Record
+                                </button>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Step 3: Modal Dialog Overlay -->
+<div class="fixed inset-0 z-[100] flex items-center justify-center p-4 modal-overlay hidden opacity-0 transition-opacity duration-300" id="delete-modal">
+<div class="bg-surface-container-lowest w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden border border-outline-variant">
+<div class="p-8">
+<div class="w-16 h-16 bg-error-container rounded-full flex items-center justify-center mb-6 mx-auto">
+<span class="material-symbols-outlined text-error text-4xl" data-icon="warning">warning</span>
+</div>
+<h2 class="text-headline-md font-headline-md text-primary text-center mb-4">Critical Action Required</h2>
+<p class="text-body-md font-body-md text-on-surface-variant text-center mb-8">
+                    You are about to permanently delete <strong class="text-primary">EV-2023-8902-X</strong>. This action will purge all metadata and physical binary data from the primary and redundant storage clusters.
+                </p>
+<div class="bg-surface-container p-4 rounded-lg mb-8">
+<label class="block text-label-md font-label-md text-on-surface-variant mb-2">To confirm, type <span class="font-bold text-primary">PERMANENT DELETE</span> below:</label>
+<input class="w-full px-4 py-2 border border-outline rounded focus:ring-1 focus:ring-error focus:border-error outline-none text-body-md font-body-md" id="confirm-string" placeholder="Type confirmation phrase" type="text"/>
+</div>
+<div class="flex gap-4">
+<button class="flex-1 py-3 px-4 border border-outline rounded-lg text-primary font-label-md text-label-md hover:bg-surface-container transition-all" onclick="closeModal()">Cancel Action</button>
+<button class="flex-1 py-3 px-4 bg-error text-on-primary rounded-lg font-label-md text-label-md hover:bg-red-700 transition-all shadow-sm" onclick="executeDelete()">Confirm Delete</button>
+</div>
+</div>
+<div class="bg-surface-container-low px-8 py-3 text-center">
+<span class="text-label-sm font-label-sm text-on-surface-variant flex items-center justify-center gap-1">
+<span class="material-symbols-outlined text-xs" data-icon="lock">lock</span> 
+                    Secure Authentication Required via Token
+                </span>
+</div>
+</div>
+</div>
+<!-- Success Feedback Overlay -->
+<div class="fixed bottom-10 right-10 z-[110] bg-primary-container text-on-primary px-8 py-4 rounded-xl shadow-2xl border-l-4 border-green-500 hidden transform translate-y-20 transition-all duration-500" id="success-toast">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-green-400" data-icon="check_circle">check_circle</span>
+<div>
+<p class="font-bold">Evidence Purged</p>
+<p class="text-xs opacity-80">Log entry #A902-88B created successfully.</p>
+</div>
+</div>
+</div>
+<script>
+        function simulateSearch() {
+            const input = document.getElementById('search-input');
+            const summary = document.getElementById('evidence-summary');
+            
+            if(input.value.trim().length > 3) {
+                summary.classList.remove('hidden');
+                setTimeout(() => {
+                    summary.classList.remove('opacity-0');
+                }, 10);
+            }
+        }
+
+        function openModal() {
+            const modal = document.getElementById('delete-modal');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+            }, 10);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('delete-modal');
+            modal.classList.add('opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        function executeDelete() {
+            const confirmString = document.getElementById('confirm-string').value;
+            if(confirmString === "PERMANENT DELETE") {
+                closeModal();
+                
+                // Show success toast
+                const toast = document.getElementById('success-toast');
+                toast.classList.remove('hidden');
+                setTimeout(() => {
+                    toast.classList.remove('translate-y-20');
+                }, 50);
+
+                // Hide evidence card
+                const summary = document.getElementById('evidence-summary');
+                summary.classList.add('opacity-0');
+                setTimeout(() => {
+                    summary.classList.add('hidden');
+                }, 500);
+
+                // Hide toast after 3 seconds
+                setTimeout(() => {
+                    toast.classList.add('translate-y-20');
+                    setTimeout(() => {
+                        toast.classList.add('hidden');
+                    }, 500);
+                }, 3000);
+            } else {
+                const input = document.getElementById('confirm-string');
+                input.classList.add('border-red-500', 'animate-shake');
+                setTimeout(() => input.classList.remove('animate-shake'), 400);
+            }
+        }
+
+        // Add shake animation
+        const style = document.createElement('style');
+        style.innerHTML = `
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                25% { transform: translateX(-5px); }
+                75% { transform: translateX(5px); }
+            }
+            .animate-shake { animation: shake 0.2s ease-in-out 0s 2; }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body></html>

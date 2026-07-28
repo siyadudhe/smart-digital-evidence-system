@@ -1,0 +1,5 @@
+EVD-2024-001|CASE-4412-X|Encrypted External SSD|Officer John Doe|2026-07-20|Secured|Samsung 2TB SSD with BitLocker encryption recovered from suspect premises.
+EVD-2024-002|CASE-2099-B|Server Authorization Log File|Administrator|2026-07-22|Under Lab Analysis|Raw SSH access logs containing unauthorized root login attempts.
+EVD-2024-003|CASE-9910-A|Smartphone Flash Memory Dump|Detective Sarah Jenkins|2026-07-24|Pending Review|Binary NAND dump extracted via hardware reader.
+EVD-2024-004|CASE-8902-X|Network Packet Capture (.pcap)|Officer John Doe|2026-07-25|Secured|12GB Wireshark trace recorded during intrusion event.
+E0E1|Case-100|laptop theift|siya dudhe|2026-07-10|Pending Review|Laptop (brand: Lenovo, color: black, approx. 14-inch screen) recovered from

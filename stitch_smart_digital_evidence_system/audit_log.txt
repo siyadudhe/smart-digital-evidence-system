@@ -1,0 +1,13 @@
+2026-07-28 12:00:00 | system | system | SYSTEM_INIT | Plain text storage initialized (evidence.txt, audit_log.txt)
+2026-07-28 12:05:00 | admin | admin | LOGIN_SUCCESS | Administrator logged in
+2026-07-28 12:10:00 | officer | officer | LOGIN_SUCCESS | Officer John Doe logged in
+2026-07-28 13:38:06 | admin | none | LOGIN_FAILED | Failed login attempt for username 'admin'
+2026-07-28 13:38:16 | admin | admin | LOGIN_SUCCESS | User logged in successfully from 127.0.0.1
+2026-07-28 13:38:32 | admin | admin | LOGOUT | User logged out.
+2026-07-28 13:41:30 | officer | officer | LOGIN_SUCCESS | User logged in successfully from 127.0.0.1
+2026-07-28 13:52:21 | officer | officer | ADD_EVIDENCE | Appended evidence E0E1 to evidence.txt
+2026-07-28 13:53:02 | officer | officer | LOGOUT | User logged out.
+2026-07-28 13:53:17 | admin | admin | LOGIN_SUCCESS | User logged in successfully from 127.0.0.1
+2026-07-28 13:54:32 | admin | admin | UPDATE_EVIDENCE | Updated record E0E1 in evidence.txt
+2026-07-28 13:55:22 | admin | admin | LOGOUT | User logged out.
+2026-07-28 13:55:37 | officer | officer | LOGIN_SUCCESS | User logged in successfully from 127.0.0.1

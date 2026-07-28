@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Search Evidence - ForensicShield</title>
+<!-- Google Fonts: Public Sans -->
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-container": "#131b2e",
+                    "on-primary": "#ffffff",
+                    "error": "#ba1a1a",
+                    "surface-bright": "#f7f9fb",
+                    "on-surface": "#191c1e",
+                    "on-tertiary-fixed-variant": "#763300",
+                    "surface-container-low": "#f2f4f6",
+                    "surface-container-highest": "#e0e3e5",
+                    "on-secondary-fixed-variant": "#3a485c",
+                    "tertiary-container": "#331200",
+                    "on-primary-container": "#7c839b",
+                    "primary": "#000000",
+                    "on-error-container": "#93000a",
+                    "on-secondary-fixed": "#0d1c2f",
+                    "primary-fixed-dim": "#bec6e0",
+                    "secondary-fixed-dim": "#b9c7e0",
+                    "on-tertiary-fixed": "#331200",
+                    "tertiary-fixed-dim": "#ffb68e",
+                    "on-primary-fixed": "#131b2e",
+                    "outline": "#76777d",
+                    "error-container": "#ffdad6",
+                    "outline-variant": "#c6c6cd",
+                    "on-background": "#191c1e",
+                    "inverse-on-surface": "#eff1f3",
+                    "inverse-surface": "#2d3133",
+                    "secondary-fixed": "#d5e3fd",
+                    "on-secondary-container": "#57657b",
+                    "surface-variant": "#e0e3e5",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-fixed": "#dae2fd",
+                    "on-secondary": "#ffffff",
+                    "surface-container": "#eceef0",
+                    "on-tertiary": "#ffffff",
+                    "secondary": "#515f74",
+                    "surface-tint": "#565e74",
+                    "on-error": "#ffffff",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "surface": "#f7f9fb",
+                    "secondary-container": "#d5e3fd",
+                    "background": "#f7f9fb",
+                    "surface-container-high": "#e6e8ea",
+                    "inverse-primary": "#bec6e0",
+                    "on-surface-variant": "#45464d",
+                    "tertiary": "#000000",
+                    "tertiary-fixed": "#ffdbca",
+                    "on-tertiary-container": "#cf6721",
+                    "surface-dim": "#d8dadc"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "base": "4px",
+                    "margin-page": "32px",
+                    "container-max": "1440px",
+                    "sidebar-width": "280px",
+                    "gutter-md": "24px"
+            },
+            "fontFamily": {
+                    "body-md": ["Public Sans"],
+                    "headline-md": ["Public Sans"],
+                    "headline-lg-mobile": ["Public Sans"],
+                    "label-md": ["Public Sans"],
+                    "label-sm": ["Public Sans"],
+                    "body-lg": ["Public Sans"],
+                    "headline-lg": ["Public Sans"]
+            },
+            "fontSize": {
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "500"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg": ["30px", {"lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .sidebar-item-active {
+            box-shadow: -4px 0 0 0 #cf6721 inset; /* Using on-tertiary-container as accent */
+        }
+        .custom-scroll::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scroll::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: #c6c6cd;
+            border-radius: 10px;
+        }
+        .search-glass {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+    </style>
+</head>
+<body class="bg-background font-body-md text-on-surface selection:bg-primary-fixed selection:text-on-primary-fixed overflow-hidden">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-margin-page h-16 bg-surface-container-highest dark:bg-primary-container shadow-sm border-b border-outline-variant dark:border-outline">
+<div class="flex items-center gap-4">
+<span class="text-headline-md font-headline-md font-bold text-on-surface dark:text-on-primary">ForensicShield</span>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-4 text-on-surface-variant dark:text-on-primary-container">
+<button class="p-2 hover:bg-surface-container-high dark:hover:bg-primary transition-colors rounded-full relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="p-2 hover:bg-surface-container-high dark:hover:bg-primary transition-colors rounded-full">
+<span class="material-symbols-outlined">help</span>
+</button>
+</div>
+<div class="h-8 w-px bg-outline-variant"></div>
+<div class="flex items-center gap-3">
+<div class="text-right hidden md:block">
+<p class="text-label-md font-label-md text-on-surface">Det. Sarah Miller</p>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Badge #8821</p>
+</div>
+<div class="w-10 h-10 rounded-full bg-primary-container overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a female police detective in a neutral background, wearing a professional blazer. The lighting is crisp and authoritative, reflecting a modern corporate forensic environment with high clarity and focused expression." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCas21iVG0n2naNZCKhzGrt3CfrA54pLnaxi28V0zPHbBZJLyn6RNX79lL0TvsS3hc0jJlPEFxmhPGop3YGI2DzXt0ybcfT0nDu3MKJ_6MpttQqN3ifsi9tzcNZ9MTsqjfYDIvxy6ytfgD3ReJDnPWFVuM667VgrTs6mBaEG5y3tPRUNtFfLV6VBGLTqOflhY0dBGczxXRxi77rcGPWDLmJMQcDSUCCXq0mo2CQuUVrzlB2lqZNoOWZXQ"/>
+</div>
+<button class="text-label-md font-label-md text-primary dark:text-on-primary hover:opacity-80 transition-opacity">Logout</button>
+</div>
+</div>
+</header>
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-full w-sidebar-width flex flex-col py-6 z-40 bg-primary-container dark:bg-black">
+<!-- Sidebar Header -->
+<div class="px-8 mb-10 flex items-center gap-4">
+<div class="w-10 h-10 bg-on-primary/10 rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary">security</span>
+</div>
+<div>
+<h2 class="text-headline-md font-headline-md text-on-primary">Digital Evidence</h2>
+<p class="text-label-sm font-label-sm text-on-primary-container">Unit 402-B</p>
+</div>
+</div>
+<!-- Navigation Links -->
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-4 text-on-primary-container dark:text-surface-variant px-8 py-3 hover:bg-on-primary-fixed-variant dark:hover:bg-primary-container transition-all" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-label-md font-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-4 text-on-primary-container dark:text-surface-variant px-8 py-3 hover:bg-on-primary-fixed-variant dark:hover:bg-primary-container transition-all" href="#">
+<span class="material-symbols-outlined">add_box</span>
+<span class="text-label-md font-label-md">Add Evidence</span>
+</a>
+<a class="flex items-center gap-4 text-on-primary-container dark:text-surface-variant px-8 py-3 hover:bg-on-primary-fixed-variant dark:hover:bg-primary-container transition-all" href="#">
+<span class="material-symbols-outlined">table_view</span>
+<span class="text-label-md font-label-md">View Evidence</span>
+</a>
+<a class="flex items-center gap-4 bg-primary dark:bg-surface-container-highest text-on-primary dark:text-primary rounded-l-full ml-4 pl-4 py-3 border-l-4 border-on-tertiary-container scale-[0.98] transition-transform duration-150" href="#">
+<span class="material-symbols-outlined">search</span>
+<span class="text-label-md font-label-md">Search Evidence</span>
+</a>
+<a class="flex items-center gap-4 text-on-primary-container dark:text-surface-variant px-8 py-3 hover:bg-on-primary-fixed-variant dark:hover:bg-primary-container transition-all" href="#">
+<span class="material-symbols-outlined">edit</span>
+<span class="text-label-md font-label-md">Update Evidence</span>
+</a>
+</nav>
+<!-- Footer Links -->
+<div class="mt-auto border-t border-on-primary/10 pt-4">
+<a class="flex items-center gap-4 text-on-primary-container dark:text-surface-variant px-8 py-3 hover:bg-on-primary-fixed-variant transition-all" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-label-md font-label-md">Settings</span>
+</a>
+<a class="flex items-center gap-4 text-on-primary-container dark:text-surface-variant px-8 py-3 hover:bg-on-primary-fixed-variant transition-all" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="text-label-md font-label-md">Exit</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-sidebar-width pt-16 h-screen overflow-y-auto custom-scroll bg-surface-bright">
+<div class="max-w-container-max mx-auto p-margin-page">
+<!-- Breadcrumbs -->
+<nav aria-label="Breadcrumb" class="flex mb-6 text-label-sm font-label-sm text-on-surface-variant">
+<ol class="flex items-center space-x-2">
+<li><a class="hover:text-primary" href="#">Ecosystem</a></li>
+<li><span class="material-symbols-outlined text-[14px]">chevron_right</span></li>
+<li><a class="hover:text-primary" href="#">Evidence Management</a></li>
+<li><span class="material-symbols-outlined text-[14px]">chevron_right</span></li>
+<li class="text-primary font-bold">Search Database</li>
+</ol>
+</nav>
+<header class="mb-10">
+<h1 class="text-headline-lg font-headline-lg text-primary mb-2">Search Digital Evidence</h1>
+<p class="text-body-lg text-on-surface-variant max-w-2xl">Access the unified Smart Digital Evidence System. Enter a unique Evidence ID, Case Number, or keyword to retrieve cryptographically secured records.</p>
+</header>
+<!-- Search Section: Centered & Focused -->
+<section class="mb-12 flex flex-col items-center">
+<div class="w-full max-w-3xl search-glass rounded-xl p-8 shadow-sm">
+<div class="relative group">
+<div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-outline group-focus-within:text-primary transition-colors">search</span>
+</div>
+<input class="block w-full pl-12 pr-32 py-5 bg-surface-container-lowest border border-outline-variant rounded-lg text-body-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all placeholder:text-outline/60" id="evidence-search" placeholder="Search by Evidence ID (e.g., EVD-2023-0882)..." type="text"/>
+<div class="absolute inset-y-2 right-2">
+<button class="h-full px-8 bg-primary text-on-primary rounded-md font-label-md flex items-center gap-2 hover:opacity-90 active:scale-95 transition-all" onclick="simulateSearch()">
+<span>Search</span>
+</button>
+</div>
+</div>
+<div class="mt-4 flex flex-wrap gap-2">
+<span class="text-label-sm font-label-sm text-on-surface-variant py-1">Recent Searches:</span>
+<button class="text-label-sm bg-surface-container text-on-surface-variant px-3 py-1 rounded-full hover:bg-surface-container-high transition-colors">EVD-2024-001</button>
+<button class="text-label-sm bg-surface-container text-on-surface-variant px-3 py-1 rounded-full hover:bg-surface-container-high transition-colors">CASE-4429</button>
+<button class="text-label-sm bg-surface-container text-on-surface-variant px-3 py-1 rounded-full hover:bg-surface-container-high transition-colors">Encrypted_Log_77.txt</button>
+</div>
+</div>
+</section>
+<!-- Results Section -->
+<div class="space-y-6" id="results-container">
+<!-- Example Result Card (Initially Visible as requested for 'sample data') -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden shadow-sm transition-all hover:shadow-md">
+<!-- Card Header -->
+<div class="border-b border-outline-variant bg-surface-container-low px-8 py-4 flex justify-between items-center">
+<div class="flex items-center gap-3">
+<div class="bg-primary-container p-2 rounded text-on-primary">
+<span class="material-symbols-outlined">fingerprint</span>
+</div>
+<div>
+<h3 class="text-label-md font-label-md text-on-surface-variant uppercase tracking-wider">Evidence ID</h3>
+<p class="text-headline-md font-headline-md text-primary">EVD-2024-0882-QX</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<span class="px-3 py-1 bg-[#DEF7EC] text-[#03543F] text-label-sm rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                                Evidence Secured
+                            </span>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Card Body: Bento Layout -->
+<div class="p-8 grid grid-cols-1 md:grid-cols-12 gap-8">
+<!-- Main Details -->
+<div class="md:col-span-8 grid grid-cols-2 gap-y-8 gap-x-12">
+<div>
+<label class="block text-label-sm font-label-sm text-on-surface-variant mb-1">Case Number</label>
+<p class="text-body-lg font-bold text-primary">CASE-2024-MAR-012</p>
+</div>
+<div>
+<label class="block text-label-sm font-label-sm text-on-surface-variant mb-1">Evidence Title</label>
+<p class="text-body-lg font-bold text-primary">Encrypted Mobile Device Image</p>
+</div>
+<div>
+<label class="block text-label-sm font-label-sm text-on-surface-variant mb-1">Assigned Officer</label>
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-secondary-container"></div>
+<p class="text-body-md text-primary">Det. Miller, Sarah (#8821)</p>
+</div>
+</div>
+<div>
+<label class="block text-label-sm font-label-sm text-on-surface-variant mb-1">Seizure Date</label>
+<p class="text-body-md text-primary">Oct 24, 2023 • 14:22 EST</p>
+</div>
+<div class="col-span-2">
+<label class="block text-label-sm font-label-sm text-on-surface-variant mb-3">Chain of Custody Summary</label>
+<div class="space-y-4 relative pl-4 border-l-2 border-outline-variant">
+<div class="relative">
+<div class="absolute -left-[21px] top-1 w-3 h-3 rounded-full bg-primary ring-4 ring-white"></div>
+<p class="text-label-md font-label-md text-primary">Transferred to Lab A</p>
+<p class="text-label-sm text-on-surface-variant">Nov 02, 2023 - Tech. Alan Watts</p>
+</div>
+<div class="relative">
+<div class="absolute -left-[21px] top-1 w-3 h-3 rounded-full bg-outline-variant ring-4 ring-white"></div>
+<p class="text-label-md font-label-md text-on-surface-variant">Hash Verification Completed</p>
+<p class="text-label-sm text-on-surface-variant">Oct 25, 2023 - System Auto-Log</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Side Details / Metadata -->
+<div class="md:col-span-4 bg-surface-container-low rounded-lg p-6 border border-outline-variant/30">
+<h4 class="text-label-md font-label-md text-primary mb-4 border-b border-outline-variant pb-2">Technical Metadata</h4>
+<div class="space-y-4">
+<div class="flex justify-between items-center">
+<span class="text-label-sm text-on-surface-variant">SHA-256 Hash</span>
+<span class="text-label-sm font-mono text-primary truncate ml-4" title="f3a4...8e21">f3a4...8e21</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-label-sm text-on-surface-variant">File Size</span>
+<span class="text-label-sm text-primary">12.4 GB</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-label-sm text-on-surface-variant">Storage Node</span>
+<span class="text-label-sm text-primary">AWS-Gov-East-1</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-label-sm text-on-surface-variant">Access Level</span>
+<span class="text-label-sm px-2 py-0.5 bg-tertiary-fixed text-on-tertiary-fixed-variant rounded text-[10px] font-bold">RESTRICTED</span>
+</div>
+</div>
+<div class="mt-8 space-y-3">
+<button class="w-full py-3 bg-primary-container text-on-primary rounded font-label-md hover:opacity-90 transition-opacity flex justify-center items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">download</span>
+                                    Download Evidence
+                                </button>
+<button class="w-full py-3 border border-outline text-primary rounded font-label-md hover:bg-surface-container-high transition-colors flex justify-center items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">history</span>
+                                    Full Audit Log
+                                </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Empty State (Hidden by default, shown if no results) -->
+<div class="hidden flex flex-col items-center justify-center py-24 text-center" id="empty-state">
+<div class="w-24 h-24 bg-surface-container-highest rounded-full flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-[48px] text-outline">search_off</span>
+</div>
+<h3 class="text-headline-md font-headline-md text-primary">No Records Found</h3>
+<p class="text-body-md text-on-surface-variant mt-2 max-w-sm">We couldn't find any evidence matching that ID. Please check the reference number and try again.</p>
+</div>
+</div>
+</div>
+</main>
+<!-- Overlay Loading Spinner (Hidden) -->
+<div class="hidden fixed inset-0 bg-white/60 backdrop-blur-sm z-[100] flex items-center justify-center" id="loading-overlay">
+<div class="flex flex-col items-center">
+<div class="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+<p class="mt-4 text-label-md font-label-md text-primary tracking-widest uppercase">Decryption in Progress...</p>
+</div>
+</div>
+<script>
+        function simulateSearch() {
+            const query = document.getElementById('evidence-search').value;
+            const results = document.getElementById('results-container');
+            const loader = document.getElementById('loading-overlay');
+            
+            if(!query) return;
+
+            // Show loader
+            loader.classList.remove('hidden');
+            
+            setTimeout(() => {
+                loader.classList.add('hidden');
+                
+                // For demo: if query contains 'error' or is 'empty', show empty state
+                if (query.toLowerCase() === 'empty') {
+                    results.children[0].classList.add('hidden');
+                    document.getElementById('empty-state').classList.remove('hidden');
+                } else {
+                    results.children[0].classList.remove('hidden');
+                    document.getElementById('empty-state').classList.add('hidden');
+                    
+                    // Simple animation for showing the card
+                    results.children[0].style.opacity = '0';
+                    results.children[0].style.transform = 'translateY(10px)';
+                    setTimeout(() => {
+                        results.children[0].style.transition = 'all 0.4s ease-out';
+                        results.children[0].style.opacity = '1';
+                        results.children[0].style.transform = 'translateY(0)';
+                    }, 50);
+                }
+            }, 800);
+        }
+
+        // Add keyboard support
+        document.getElementById('evidence-search').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                simulateSearch();
+            }
+        });
+    </script>
+</body></html>

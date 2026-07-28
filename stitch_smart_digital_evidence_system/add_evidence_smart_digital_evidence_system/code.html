@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Add Evidence | ForensicShield</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-container": "#131b2e",
+                    "on-primary": "#ffffff",
+                    "error": "#ba1a1a",
+                    "surface-bright": "#f7f9fb",
+                    "on-surface": "#191c1e",
+                    "on-tertiary-fixed-variant": "#763300",
+                    "surface-container-low": "#f2f4f6",
+                    "surface-container-highest": "#e0e3e5",
+                    "on-secondary-fixed-variant": "#3a485c",
+                    "tertiary-container": "#331200",
+                    "on-primary-container": "#7c839b",
+                    "primary": "#000000",
+                    "on-error-container": "#93000a",
+                    "on-secondary-fixed": "#0d1c2f",
+                    "primary-fixed-dim": "#bec6e0",
+                    "secondary-fixed-dim": "#b9c7e0",
+                    "on-tertiary-fixed": "#331200",
+                    "tertiary-fixed-dim": "#ffb68e",
+                    "on-primary-fixed": "#131b2e",
+                    "outline": "#76777d",
+                    "error-container": "#ffdad6",
+                    "outline-variant": "#c6c6cd",
+                    "on-background": "#191c1e",
+                    "inverse-on-surface": "#eff1f3",
+                    "inverse-surface": "#2d3133",
+                    "secondary-fixed": "#d5e3fd",
+                    "on-secondary-container": "#57657b",
+                    "surface-variant": "#e0e3e5",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-fixed": "#dae2fd",
+                    "on-secondary": "#ffffff",
+                    "surface-container": "#eceef0",
+                    "on-tertiary": "#ffffff",
+                    "secondary": "#515f74",
+                    "surface-tint": "#565e74",
+                    "on-error": "#ffffff",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "surface": "#f7f9fb",
+                    "secondary-container": "#d5e3fd",
+                    "background": "#f7f9fb",
+                    "surface-container-high": "#e6e8ea",
+                    "inverse-primary": "#bec6e0",
+                    "on-surface-variant": "#45464d",
+                    "tertiary": "#000000",
+                    "tertiary-fixed": "#ffdbca",
+                    "on-tertiary-container": "#cf6721",
+                    "surface-dim": "#d8dadc"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "base": "4px",
+                    "margin-page": "32px",
+                    "container-max": "1440px",
+                    "sidebar-width": "280px",
+                    "gutter-md": "24px"
+            },
+            "fontFamily": {
+                    "body-md": ["Public Sans"],
+                    "headline-md": ["Public Sans"],
+                    "headline-lg-mobile": ["Public Sans"],
+                    "label-md": ["Public Sans"],
+                    "label-sm": ["Public Sans"],
+                    "body-lg": ["Public Sans"],
+                    "headline-lg": ["Public Sans"]
+            },
+            "fontSize": {
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "500"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg": ["30px", {"lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Public Sans', sans-serif; background-color: #f7f9fb; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .form-card {
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.04);
+            border: 1px solid #E2E8F0;
+        }
+        .nav-item-active {
+            box-shadow: -4px 0 0 0 #cf6721 inset; /* Matches the border-l-4 command but for the rounded state */
+        }
+    </style>
+</head>
+<body class="text-on-surface">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-margin-page h-16 bg-surface-container-highest dark:bg-primary-container border-b border-outline-variant dark:border-outline shadow-sm">
+<div class="flex items-center gap-4">
+<span class="text-headline-md font-headline-md font-bold text-on-surface dark:text-on-primary">ForensicShield</span>
+</div>
+<div class="flex items-center gap-6">
+<button class="material-symbols-outlined text-primary dark:text-on-primary hover:bg-surface-container-high dark:hover:bg-primary p-2 rounded-full transition-colors">notifications</button>
+<button class="material-symbols-outlined text-primary dark:text-on-primary hover:bg-surface-container-high dark:hover:bg-primary p-2 rounded-full transition-colors">help</button>
+<div class="h-8 w-px bg-outline-variant mx-2"></div>
+<button class="text-label-md font-label-md text-primary dark:text-on-primary hover:opacity-80 transition-opacity">Logout</button>
+<div class="w-10 h-10 rounded-full bg-surface-container-low flex items-center justify-center overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a law enforcement officer in a clean, modern digital forensics laboratory setting. The lighting is soft and neutral, emphasizing a high-stakes, authoritative professional environment. The background features blurred digital monitors with complex data visualization, maintaining a focused corporate minimalist aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGDmjRRY5kPbauraXHQVuxAsX7WxCX2YCZYUNOiQeQzztbSWsiMUg4uGQQarNnBb0haVjHicZH4liACE1nKdvuB-3t4X8vC-TJW7cZ0HQYWAkqwYK7vw8X4NATRKPXxFzImBp9cTlnpsw4eIZRlSMmnUV_OFsUIkVODBe8sB6EAGXJQhMWfoQlexWiqPmI-sDDWzZoW5bJHX-oe_9kM0H2Gw4iR9l9rRnz7AtE-HmY4q1sAT9C1me44A"/>
+</div>
+</div>
+</header>
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-full w-sidebar-width flex flex-col py-6 z-40 bg-primary-container dark:bg-black hidden md:flex">
+<div class="px-8 mb-10 flex items-center gap-4 mt-16">
+<div class="w-10 h-10 bg-on-primary rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-primary-container" style="font-variation-settings: 'FILL' 1;">security</span>
+</div>
+<div>
+<h2 class="text-headline-md font-headline-md text-on-primary leading-tight">Digital Evidence</h2>
+<p class="text-label-sm font-label-sm text-on-primary-container opacity-80 uppercase tracking-widest">Unit 402-B</p>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-4 text-on-primary-container dark:text-surface-variant px-8 py-3 hover:bg-on-primary-fixed-variant dark:hover:bg-primary-container transition-all" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-label-md font-label-md">Dashboard</span>
+</a>
+<!-- Active State: Add Evidence -->
+<a class="flex items-center gap-4 bg-primary dark:bg-surface-container-highest text-on-primary dark:text-primary rounded-l-full ml-4 pl-4 py-3 border-l-4 border-on-tertiary-container scale-[0.98] transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add_box</span>
+<span class="text-label-md font-label-md font-bold">Add Evidence</span>
+</a>
+<a class="flex items-center gap-4 text-on-primary-container dark:text-surface-variant px-8 py-3 hover:bg-on-primary-fixed-variant dark:hover:bg-primary-container transition-all" href="#">
+<span class="material-symbols-outlined">table_view</span>
+<span class="text-label-md font-label-md">View Evidence</span>
+</a>
+<a class="flex items-center gap-4 text-on-primary-container dark:text-surface-variant px-8 py-3 hover:bg-on-primary-fixed-variant dark:hover:bg-primary-container transition-all" href="#">
+<span class="material-symbols-outlined">search</span>
+<span class="text-label-md font-label-md">Search Evidence</span>
+</a>
+<a class="flex items-center gap-4 text-on-primary-container dark:text-surface-variant px-8 py-3 hover:bg-on-primary-fixed-variant dark:hover:bg-primary-container transition-all" href="#">
+<span class="material-symbols-outlined">edit</span>
+<span class="text-label-md font-label-md">Update Evidence</span>
+</a>
+</nav>
+<div class="mt-auto border-t border-on-primary/10 pt-4">
+<a class="flex items-center gap-4 text-on-primary-container dark:text-surface-variant px-8 py-3 hover:bg-on-primary-fixed-variant transition-all" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-label-md font-label-md">Settings</span>
+</a>
+<a class="flex items-center gap-4 text-on-primary-container dark:text-surface-variant px-8 py-3 hover:bg-on-primary-fixed-variant transition-all" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="text-label-md font-label-md">Exit</span>
+</a>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="md:ml-sidebar-width mt-16 p-margin-page min-h-screen">
+<div class="max-w-[1000px] mx-auto pt-8">
+<!-- Breadcrumbs -->
+<nav class="flex items-center gap-2 text-label-md font-label-md text-on-surface-variant mb-8">
+<span class="hover:text-primary cursor-pointer">ForensicShield</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="hover:text-primary cursor-pointer">Evidence Management</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-primary font-bold">New Entry</span>
+</nav>
+<header class="mb-10">
+<h1 class="font-headline-lg text-headline-lg text-primary tracking-tight">Add New Evidence Record</h1>
+<p class="text-body-lg text-secondary mt-2">Submit a new digital artifact into the secure forensic repository. Ensure all fields comply with chain-of-custody protocols.</p>
+</header>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter-md">
+<!-- Form Card -->
+<div class="lg:col-span-8 bg-surface-container-lowest rounded-xl p-10 form-card border-l-[6px] border-l-on-tertiary-container">
+<form class="space-y-8" id="evidenceForm">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- Evidence ID -->
+<div class="space-y-2">
+<label class="text-label-md font-label-md text-on-surface-variant block flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">fingerprint</span>
+                                    Evidence ID
+                                </label>
+<input class="w-full bg-white border border-outline-variant rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all font-body-md" placeholder="EV-2023-0001" type="text"/>
+</div>
+<!-- Case ID -->
+<div class="space-y-2">
+<label class="text-label-md font-label-md text-on-surface-variant block flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">folder</span>
+                                    Case ID
+                                </label>
+<input class="w-full bg-white border border-outline-variant rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all font-body-md" placeholder="CASE-DE-99" type="text"/>
+</div>
+<!-- Evidence Title -->
+<div class="md:col-span-2 space-y-2">
+<label class="text-label-md font-label-md text-on-surface-variant block flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">title</span>
+                                    Evidence Title
+                                </label>
+<input class="w-full bg-white border border-outline-variant rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all font-body-md" placeholder="Encrypted External Drive - Found at Scene" type="text"/>
+</div>
+<!-- Officer Name -->
+<div class="space-y-2">
+<label class="text-label-md font-label-md text-on-surface-variant block flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">badge</span>
+                                    Officer Name
+                                </label>
+<input class="w-full bg-white border border-outline-variant rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all font-body-md" placeholder="Det. Sarah Jenkins" type="text"/>
+</div>
+<!-- Date of Collection -->
+<div class="space-y-2">
+<label class="text-label-md font-label-md text-on-surface-variant block flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span>
+                                    Date of Collection
+                                </label>
+<div class="relative">
+<input class="w-full bg-white border border-outline-variant rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all font-body-md" type="date"/>
+</div>
+</div>
+</div>
+<!-- Secondary Attributes -->
+<div class="pt-6 border-t border-surface-container">
+<label class="text-label-md font-label-md text-on-surface-variant block mb-4">Evidence Description &amp; Notes</label>
+<textarea class="w-full bg-white border border-outline-variant rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all font-body-md" placeholder="Provide detailed context regarding the collection and state of the evidence..." rows="4"></textarea>
+</div>
+<div class="flex items-center justify-end gap-4 pt-4">
+<button class="px-6 py-3 rounded-lg border border-primary text-primary font-label-md hover:bg-surface-container-low transition-colors" type="button">Cancel</button>
+<button class="px-8 py-3 rounded-lg bg-primary-container text-on-primary font-label-md flex items-center gap-2 hover:opacity-90 active:scale-95 transition-all shadow-md" type="submit">
+<span class="material-symbols-outlined text-[20px]">save</span>
+                                Save Evidence
+                            </button>
+</div>
+</form>
+</div>
+<!-- Side Info Panel -->
+<div class="lg:col-span-4 space-y-gutter-md">
+<div class="bg-primary-container text-on-primary rounded-xl p-6 relative overflow-hidden">
+
+<div class="relative z-10">
+<h3 class="font-headline-md text-headline-md mb-3">Security Protocol</h3>
+<p class="text-body-md opacity-80 mb-6">All submitted evidence is immediately hashed with SHA-256 and locked in a digital vault. Ensure timestamps are accurate to UTC-0.</p>
+<div class="flex items-center gap-3 bg-white/10 rounded-lg p-3">
+<span class="material-symbols-outlined text-on-tertiary-container">verified_user</span>
+<span class="text-label-sm uppercase tracking-wider font-bold">FIPS 140-2 Compliant</span>
+</div>
+</div>
+</div>
+<div class="bg-surface-container rounded-xl p-6 border border-outline-variant">
+<h3 class="font-headline-md text-headline-md text-primary mb-4">Recent Activity</h3>
+<div class="space-y-4">
+<div class="flex items-start gap-3">
+<div class="w-2 h-2 mt-2 rounded-full bg-on-tertiary-container"></div>
+<div>
+<p class="text-body-md font-bold">Case #482 Updated</p>
+<p class="text-label-sm text-on-surface-variant">2 mins ago by Admin</p>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<div class="w-2 h-2 mt-2 rounded-full bg-outline"></div>
+<div>
+<p class="text-body-md font-bold">Evidence Hash Verified</p>
+<p class="text-label-sm text-on-surface-variant">15 mins ago by System</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<script>
+        document.getElementById('evidenceForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = e.target.querySelector('button[type="submit"]');
+            const originalHtml = btn.innerHTML;
+            
+            btn.innerHTML = '<span class="material-symbols-outlined animate-spin">refresh</span> Processing...';
+            btn.disabled = true;
+            
+            setTimeout(() => {
+                btn.innerHTML = '<span class="material-symbols-outlined">check_circle</span> Secured';
+                btn.classList.replace('bg-primary-container', 'bg-green-700');
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalHtml;
+                    btn.classList.replace('bg-green-700', 'bg-primary-container');
+                    btn.disabled = false;
+                }, 2000);
+            }, 1500);
+        });
+    </script>
+</body></html>

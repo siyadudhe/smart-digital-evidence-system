@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ForensicShield - Digital Evidence Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-container": "#131b2e",
+                        "on-primary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "surface-bright": "#f7f9fb",
+                        "on-surface": "#191c1e",
+                        "on-tertiary-fixed-variant": "#763300",
+                        "surface-container-low": "#f2f4f6",
+                        "surface-container-highest": "#e0e3e5",
+                        "on-secondary-fixed-variant": "#3a485c",
+                        "tertiary-container": "#331200",
+                        "on-primary-container": "#7c839b",
+                        "primary": "#000000",
+                        "on-error-container": "#93000a",
+                        "on-secondary-fixed": "#0d1c2f",
+                        "primary-fixed-dim": "#bec6e0",
+                        "secondary-fixed-dim": "#b9c7e0",
+                        "on-tertiary-fixed": "#331200",
+                        "tertiary-fixed-dim": "#ffb68e",
+                        "on-primary-fixed": "#131b2e",
+                        "outline": "#76777d",
+                        "error-container": "#ffdad6",
+                        "outline-variant": "#c6c6cd",
+                        "on-background": "#191c1e",
+                        "inverse-on-surface": "#eff1f3",
+                        "inverse-surface": "#2d3133",
+                        "secondary-fixed": "#d5e3fd",
+                        "on-secondary-container": "#57657b",
+                        "surface-variant": "#e0e3e5",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed": "#dae2fd",
+                        "on-secondary": "#ffffff",
+                        "surface-container": "#eceef0",
+                        "on-tertiary": "#ffffff",
+                        "secondary": "#515f74",
+                        "surface-tint": "#565e74",
+                        "on-error": "#ffffff",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "surface": "#f7f9fb",
+                        "secondary-container": "#d5e3fd",
+                        "background": "#f7f9fb",
+                        "surface-container-high": "#e6e8ea",
+                        "inverse-primary": "#bec6e0",
+                        "on-surface-variant": "#45464d",
+                        "tertiary": "#000000",
+                        "tertiary-fixed": "#ffdbca",
+                        "on-tertiary-container": "#cf6721",
+                        "surface-dim": "#d8dadc",
+                        "accent-gold": "#D4AF37"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "base": "4px",
+                        "margin-page": "32px",
+                        "container-max": "1440px",
+                        "sidebar-width": "280px",
+                        "gutter-md": "24px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Public Sans"],
+                        "headline-md": ["Public Sans"],
+                        "headline-lg-mobile": ["Public Sans"],
+                        "label-md": ["Public Sans"],
+                        "label-sm": ["Public Sans"],
+                        "body-lg": ["Public Sans"],
+                        "headline-lg": ["Public Sans"]
+                    },
+                    "fontSize": {
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "500"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg": ["30px", {"lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Public Sans', sans-serif;
+            background-color: #f7f9fb;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .sidebar-active {
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 24px;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid #E2E8F0;
+        }
+    </style>
+</head>
+<body class="text-on-surface overflow-x-hidden">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-margin-page h-16 bg-surface-container-highest dark:bg-primary-container border-b border-outline-variant dark:border-outline shadow-sm">
+<div class="flex items-center gap-4">
+<span class="text-headline-md font-headline-md font-bold text-on-surface dark:text-on-primary">ForensicShield</span>
+<div class="hidden md:flex items-center gap-6 ml-8">
+<nav class="flex gap-4">
+<a class="text-label-md font-label-md text-primary dark:text-on-primary font-bold border-b-2 border-primary py-1" href="#">Dashboard</a>
+<a class="text-label-md font-label-md text-on-surface-variant dark:text-on-primary-container hover:bg-surface-container-high dark:hover:bg-primary transition-colors px-2 py-1 rounded" href="#">Cases</a>
+<a class="text-label-md font-label-md text-on-surface-variant dark:text-on-primary-container hover:bg-surface-container-high dark:hover:bg-primary transition-colors px-2 py-1 rounded" href="#">Analytics</a>
+</nav>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-full hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">notifications</span>
+</button>
+<button class="p-2 rounded-full hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">help</span>
+</button>
+<div class="h-8 w-[1px] bg-outline-variant mx-2"></div>
+<div class="flex items-center gap-3 group cursor-pointer">
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center overflow-hidden border border-outline">
+<img class="w-full h-full object-cover" data-alt="A professional close-up portrait of a law enforcement officer in a clean, high-contrast dark blue uniform against a neutral grey studio background. The lighting is sharp and cinematic, emphasizing authority and professionalism in a modern digital forensics context." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8sM8vNo2XmTrx6BfDJL5ckSOsadjfTQ7YJbZNce8mnM0aqmJD7bhc1ppAqP1iqecG7Jbw9f3fqzrtS893pZNN2QcBC_JlXzPr3qJYz40nXPbrmXtjX5japZObI210VPLt4-qw0FiF6SVBKDpa1sckWYi_0wq7PEWa-2iT8dnabdruYERa48-n4WWT8zwnUIb0zo-h0BwsUGf2F6hhGk8lJFtUo8XBGqY7f4thSCKXIIJgL6LrcSHlsg"/>
+</div>
+<span class="text-label-md font-label-md text-on-surface hidden md:block">Officer John Doe</span>
+<button class="text-label-md font-label-md text-primary dark:text-on-primary ml-2 hover:underline">Logout</button>
+</div>
+</div>
+</header>
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-full w-sidebar-width flex flex-col py-6 z-40 bg-primary-container dark:bg-black hidden md:flex">
+<div class="px-8 mb-10 mt-16">
+<div class="flex items-center gap-3 mb-2">
+<div class="w-10 h-10 rounded-lg bg-on-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-primary-container" style="font-variation-settings: 'FILL' 1;">shield</span>
+</div>
+<div>
+<h2 class="text-headline-md font-headline-md text-on-primary leading-tight">Digital Evidence</h2>
+<p class="text-label-sm font-label-sm text-on-primary-container">Unit 402-B</p>
+</div>
+</div>
+</div>
+<nav class="flex-grow flex flex-col gap-1 overflow-y-auto">
+<a class="flex items-center gap-4 bg-primary dark:bg-surface-container-highest text-on-primary dark:text-primary rounded-l-full ml-4 pl-4 py-3 border-l-4 border-on-tertiary-container transition-transform duration-150 scale-[0.98]" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-label-md font-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-4 text-on-primary-container dark:text-surface-variant px-8 py-3 hover:bg-on-primary-fixed-variant dark:hover:bg-primary-container transition-all" href="#">
+<span class="material-symbols-outlined">add_box</span>
+<span class="text-label-md font-label-md">Add Evidence</span>
+</a>
+<a class="flex items-center gap-4 text-on-primary-container dark:text-surface-variant px-8 py-3 hover:bg-on-primary-fixed-variant dark:hover:bg-primary-container transition-all" href="#">
+<span class="material-symbols-outlined">table_view</span>
+<span class="text-label-md font-label-md">View Evidence</span>
+</a>
+<a class="flex items-center gap-4 text-on-primary-container dark:text-surface-variant px-8 py-3 hover:bg-on-primary-fixed-variant dark:hover:bg-primary-container transition-all" href="#">
+<span class="material-symbols-outlined">search</span>
+<span class="text-label-md font-label-md">Search Evidence</span>
+</a>
+<a class="flex items-center gap-4 text-on-primary-container dark:text-surface-variant px-8 py-3 hover:bg-on-primary-fixed-variant dark:hover:bg-primary-container transition-all" href="#">
+<span class="material-symbols-outlined">edit</span>
+<span class="text-label-md font-label-md">Update Evidence</span>
+</a>
+</nav>
+<div class="mt-auto px-8 flex flex-col gap-1 border-t border-on-primary-fixed-variant pt-6">
+<a class="flex items-center gap-4 text-on-primary-container dark:text-surface-variant py-3 hover:text-on-primary transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-label-md font-label-md">Settings</span>
+</a>
+<a class="flex items-center gap-4 text-error py-3 hover:opacity-80 transition-opacity" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="text-label-md font-label-md">Exit</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="md:ml-sidebar-width pt-16 min-h-screen px-margin-page py-8 max-w-[1440px] mx-auto transition-all">
+<!-- Welcome Header -->
+<div class="mb-10 animate-fade-in">
+<div class="flex items-baseline gap-2 mb-1">
+<h1 class="text-headline-lg font-headline-lg text-primary">Welcome, Officer John Doe</h1>
+<span class="text-label-md font-label-md text-on-surface-variant">Badge #99214</span>
+</div>
+<p class="text-body-md font-body-md text-on-surface-variant max-w-2xl">ForensicShield Digital Evidence Management System. All actions on this workstation are logged for chain-of-custody compliance.</p>
+</div>
+<div class="bento-grid">
+<!-- Quick Stats: Total Evidence -->
+<div class="col-span-12 md:col-span-4 bg-white rounded-xl border border-outline-variant p-6 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow group">
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 bg-secondary-container rounded-lg text-on-secondary-container">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">folder_managed</span>
+</div>
+<span class="text-label-sm font-label-sm text-green-600 bg-green-50 px-2 py-1 rounded-full">+12% from last month</span>
+</div>
+<div>
+<p class="text-label-md font-label-md text-on-secondary-container uppercase tracking-wider mb-1">Total Evidence Items</p>
+<h3 class="text-headline-lg font-headline-lg text-primary">1,284</h3>
+</div>
+<div class="mt-4 pt-4 border-t border-outline-variant">
+<a class="text-label-md font-label-md text-primary-container flex items-center gap-2 hover:gap-3 transition-all" href="#">
+                        View Detailed Inventory <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+</div>
+</div>
+<!-- Quick Stats: Total Cases -->
+<div class="col-span-12 md:col-span-4 bg-white rounded-xl border border-outline-variant p-6 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 bg-primary-fixed-dim rounded-lg text-on-primary-fixed">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">work</span>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface-variant bg-surface-container-low px-2 py-1 rounded-full">48 Active Cases</span>
+</div>
+<div>
+<p class="text-label-md font-label-md text-on-secondary-container uppercase tracking-wider mb-1">Total Cases Tracked</p>
+<h3 class="text-headline-lg font-headline-lg text-primary">412</h3>
+</div>
+<div class="mt-4 pt-4 border-t border-outline-variant">
+<a class="text-label-md font-label-md text-primary-container flex items-center gap-2 hover:gap-3 transition-all" href="#">
+                        Browse Cases <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+</div>
+</div>
+<!-- Quick Stats: Active Alerts (Contextual) -->
+<div class="col-span-12 md:col-span-4 bg-white rounded-xl border-l-4 border-l-accent-gold border-y border-r border-outline-variant p-6 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 bg-tertiary-fixed rounded-lg text-on-tertiary-container">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">warning</span>
+</div>
+<span class="text-label-sm font-label-sm text-on-tertiary-fixed-variant bg-tertiary-fixed px-2 py-1 rounded-full">Urgent</span>
+</div>
+<div>
+<p class="text-label-md font-label-md text-on-tertiary-container uppercase tracking-wider mb-1">Pending Validation</p>
+<h3 class="text-headline-lg font-headline-lg text-primary">03</h3>
+</div>
+<div class="mt-4 pt-4 border-t border-outline-variant">
+<a class="text-label-md font-label-md text-on-tertiary-fixed-variant flex items-center gap-2 hover:gap-3 transition-all" href="#">
+                        Review Flags <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+</div>
+</div>
+<!-- Recent Activity List -->
+<div class="col-span-12 md:col-span-8 bg-white rounded-xl border border-outline-variant shadow-sm overflow-hidden">
+<div class="px-6 py-5 border-b border-outline-variant bg-surface-container-low flex justify-between items-center">
+<h3 class="text-headline-md font-headline-md text-primary">Recent Activity</h3>
+<button class="text-label-md font-label-md text-on-primary-container hover:text-primary transition-colors">View Audit Log</button>
+</div>
+<div class="divide-y divide-outline-variant">
+<!-- Action 1 -->
+<div class="px-6 py-4 flex items-center gap-4 hover:bg-surface-bright transition-colors">
+<div class="w-10 h-10 rounded-full bg-green-50 text-green-600 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined">verified</span>
+</div>
+<div class="flex-grow">
+<p class="text-body-md font-body-md text-on-surface">Evidence <span class="font-bold">#EF-2023-0841</span> was successfully encrypted and locked in the secure vault.</p>
+<p class="text-label-sm font-label-sm text-on-surface-variant">2 minutes ago • Case #4412-X</p>
+</div>
+<span class="text-label-sm font-label-sm px-2 py-1 bg-surface-container rounded uppercase tracking-tighter text-on-surface-variant">SECURED</span>
+</div>
+<!-- Action 2 -->
+<div class="px-6 py-4 flex items-center gap-4 hover:bg-surface-bright transition-colors">
+<div class="w-10 h-10 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined">description</span>
+</div>
+<div class="flex-grow">
+<p class="text-body-md font-body-md text-on-surface">Updated metadata for case <span class="font-bold">"Ransomware Investigation - HQ"</span>.</p>
+<p class="text-label-sm font-label-sm text-on-surface-variant">1 hour ago • Case #2099-B</p>
+</div>
+<span class="text-label-sm font-label-sm px-2 py-1 bg-surface-container rounded uppercase tracking-tighter text-on-surface-variant">UPDATED</span>
+</div>
+<!-- Action 3 -->
+<div class="px-6 py-4 flex items-center gap-4 hover:bg-surface-bright transition-colors">
+<div class="w-10 h-10 rounded-full bg-orange-50 text-orange-600 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined">person_search</span>
+</div>
+<div class="flex-grow">
+<p class="text-body-md font-body-md text-on-surface">New evidence item <span class="font-bold">#DS-1192-M</span> added by Detective Miller.</p>
+<p class="text-label-sm font-label-sm text-on-surface-variant">3 hours ago • Case #9910-A</p>
+</div>
+<span class="text-label-sm font-label-sm px-2 py-1 bg-surface-container rounded uppercase tracking-tighter text-on-surface-variant">ADDED</span>
+</div>
+</div>
+</div>
+<!-- Evidence Preview / Visual Anchor -->
+<div class="col-span-12 md:col-span-4 bg-primary-container rounded-xl overflow-hidden relative group min-h-[300px]">
+<div class="absolute inset-0 z-0 opacity-40">
+<img class="w-full h-full object-cover" data-alt="A highly detailed macro shot of a complex circuit board with glowing blue and gold light trails representing data flow. The aesthetic is clean, technological, and corporate, emphasizing precision and digital security. The image has a dark blue-toned color grade with sharp focus on technical components." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFm7jMm_i_YgT-0VjqR_vwPB2TU1zu7GBQ-Lvr1nS4WzzeySTnlafG0t3m_O1X6_UhYs0kNbykTeI3VWKChuO4oE7_mSnM8VEetBGPwhC9dF1i9-BGMmS2utIUSPDmnWlzAYycDGrODIVKgOgSB1LyjSekttEgaJefh7bjq-LKmqSLV-RuxmlfzPgEFyl9WzB_N7-VKgjyLMyyS4aC8D3xdBpvMPXz2wY9kp52nNPCFWCuUcfvjT2W8g"/>
+</div>
+<div class="relative z-10 p-8 h-full flex flex-col justify-between text-on-primary">
+<div>
+<h4 class="text-headline-md font-headline-md mb-2">Encryption Active</h4>
+<p class="text-label-md font-label-md opacity-80 leading-relaxed">System state: Nominal. All incoming evidence is being hashed using SHA-256 with hardware-backed encryption keys.</p>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full border-2 border-primary-container bg-surface-container"></div>
+<div class="w-8 h-8 rounded-full border-2 border-primary-container bg-outline-variant"></div>
+<div class="w-8 h-8 rounded-full border-2 border-primary-container bg-on-primary-container"></div>
+</div>
+<span class="text-label-sm font-label-sm">System Verified</span>
+</div>
+</div>
+</div>
+<!-- Case Distribution / Mini Data Table -->
+<div class="col-span-12 bg-white rounded-xl border border-outline-variant shadow-sm overflow-hidden p-6">
+<div class="flex justify-between items-center mb-6">
+<h3 class="text-headline-md font-headline-md text-primary">Case Priority Overview</h3>
+<div class="flex gap-2">
+<button class="px-4 py-2 text-label-md font-label-md bg-surface-container rounded hover:bg-surface-container-high transition-colors">Weekly</button>
+<button class="px-4 py-2 text-label-md font-label-md bg-primary-container text-on-primary rounded">Monthly</button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+<div class="p-4 bg-surface-bright rounded-lg border border-outline-variant">
+<p class="text-label-sm font-label-sm text-on-surface-variant mb-1">High Priority</p>
+<div class="flex items-end gap-2">
+<span class="text-headline-md font-headline-md font-bold">12</span>
+<div class="flex-grow h-2 bg-outline-variant rounded-full mb-1.5 relative overflow-hidden">
+<div class="absolute inset-0 bg-error w-[75%] rounded-full"></div>
+</div>
+</div>
+</div>
+<div class="p-4 bg-surface-bright rounded-lg border border-outline-variant">
+<p class="text-label-sm font-label-sm text-on-surface-variant mb-1">In Review</p>
+<div class="flex items-end gap-2">
+<span class="text-headline-md font-headline-md font-bold">24</span>
+<div class="flex-grow h-2 bg-outline-variant rounded-full mb-1.5 relative overflow-hidden">
+<div class="absolute inset-0 bg-accent-gold w-[40%] rounded-full"></div>
+</div>
+</div>
+</div>
+<div class="p-4 bg-surface-bright rounded-lg border border-outline-variant">
+<p class="text-label-sm font-label-sm text-on-surface-variant mb-1">Under Lab Analysis</p>
+<div class="flex items-end gap-2">
+<span class="text-headline-md font-headline-md font-bold">08</span>
+<div class="flex-grow h-2 bg-outline-variant rounded-full mb-1.5 relative overflow-hidden">
+<div class="absolute inset-0 bg-blue-500 w-[25%] rounded-full"></div>
+</div>
+</div>
+</div>
+<div class="p-4 bg-surface-bright rounded-lg border border-outline-variant">
+<p class="text-label-sm font-label-sm text-on-surface-variant mb-1">Pending Archival</p>
+<div class="flex items-end gap-2">
+<span class="text-headline-md font-headline-md font-bold">52</span>
+<div class="flex-grow h-2 bg-outline-variant rounded-full mb-1.5 relative overflow-hidden">
+<div class="absolute inset-0 bg-on-surface-variant w-[90%] rounded-full"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- FAB for quick action (Main Dashboard) -->
+<button class="fixed bottom-8 right-8 w-14 h-14 bg-primary-container text-on-primary rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition-transform active:scale-95 group z-50">
+<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1;">add</span>
+<span class="absolute right-full mr-4 bg-inverse-surface text-inverse-on-surface text-label-md px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">New Evidence Log</span>
+</button>
+<script>
+        // Simple Micro-interactions
+        document.querySelectorAll('.hover\\:shadow-md').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-2px)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+            });
+        });
+
+        // Simulating loading effect for smooth entry
+        window.addEventListener('DOMContentLoaded', () => {
+            const main = document.querySelector('main');
+            main.classList.add('opacity-0');
+            setTimeout(() => {
+                main.classList.remove('opacity-0');
+                main.classList.add('opacity-100', 'transition-opacity', 'duration-700');
+            }, 100);
+        });
+    </script>
+</body></html>
